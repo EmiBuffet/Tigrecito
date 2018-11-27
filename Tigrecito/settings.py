@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'Tigrecito.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'tigrecito',
         'USER': 'postgres',
         'PASSWORD': 'sardina20',
