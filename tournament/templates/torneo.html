@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner-container">
+    <div class="container d-flex justify-content-center align-items-center h-100 position-relative
+      banner-heading">
+        <h1 class="banner-title animated bounceInDown">Tigrecito 2018</h1>
+    </div>
+    <div class="banner-overlay"></div>
+</div>
+
+<main>
+    <div class="heading-container p-4">
+        <div class="container">
+            <h1 class="heading-text text-center">Categorías</h1>
+        </div>
+    </div>
+
+    <div class="white-container py-5">
+        <div class="container">
+
+            <table class="table table-bordered table-hover">
+                <caption>Haga click en una categoría para ver la fase de grupos</caption>
+                <thead>
+                <tr>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Equipos</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Hacer un loop y rellenar los tr con la info que viene de la DB. Armar el PATH... -->
+
+                {% for item in context %}
+									{% if item.club_category_counter > 0 %}
+										<tr class="clickable-row" data-path="categoria/{{ item.category }}">
+	                		<td>{{ item.category }}</td>
+	                		<td>{{ item.club_category_counter }}</td>
+	                	</tr>
+									{% endif %}
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+{% endblock %}

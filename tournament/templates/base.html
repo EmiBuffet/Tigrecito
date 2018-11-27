@@ -1,0 +1,184 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es-AR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101590534-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-101590534-2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/tigre-arriba-small.png' %}" />
+
+    <!-- Search bar color... -->
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#232323">
+    <!-- Windows phone -->
+    <meta name="msapplication-navbutton-color" content="#232323">
+    <!-- IOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>
+        {% block title %}Tigrecito Sunchales - {{meta_title}}{% endblock %}
+    </title>
+    <meta name="description" content="Torneo tigrecito en Sunchales. Libertad de Sunchales presenta el torneo tigrecito, un torneo infantil que se realiza en la ciudad de Sunchales. Tigrecito Libertad">
+
+    <!-- Open graph -->
+    <meta property="og:title" content="Tigrecito Sunchales - {{meta_title}}">
+    <meta property="og:sitename" content="Tigrecito Sunchales">
+    <meta property="og:description" content="Torneo infantil Tigrecito organizado por Club Deportivo Libertad de Sunchales.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tigrecitosunchales.com/">
+    <meta property="og:locale" content="es_AR">
+    <meta property="og:image" content="https://tigrecitosunchales.com/static/images/banners/field-banner.jpg">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Trade+Winds|Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- carousel -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="{% static 'slick/slick-theme.css' %}">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="{% static 'css/customstyle.css' %}">
+
+    <!-- Global variables for JS. -->
+    <script src="{% static 'js/globalConfig.js' %}"></script>
+
+    <!-- production version -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <!-- AXios-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg main-menu sticky-top">
+        <div class="container">
+            <a class="menu-logo" href="/">
+                <img src="{% static 'images/tigre-arriba-small.png' %}" class="logo-image" alt="tigrecito-logo">
+                <span class="wild-font logo-title ml-md-3">Tigrecito</span>
+            </a>
+            <button class="navbar-toggler menu-hamburger" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars fa-2x"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto nav-pills pt-2 pt-lg-0">
+                    <li class="nav-item menu-item mr-lg-1 text-center">
+                        <a class="nav-link menu-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item menu-item mr-lg-1 mt-1 mt-lg-0 text-center">
+                        <a class="nav-link menu-link" href="{% url 'torneo' %}">Torneo</a>
+                    </li>
+                    <li class="nav-item menu-item mr-lg-1 mt-1 mt-lg-0 text-center">
+                        <a class="nav-link menu-link" href="{% url 'reglamento' %}" role="button">
+                            Reglamento
+                        </a>
+                    </li>
+                    <li class="nav-item menu-item mr-lg-1 mt-1 mt-lg-0 text-center">
+                        <a class="nav-link menu-link" href="{% url 'contacto' %}">Contactanos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+
+    <footer class="main-footer">
+        <div class="top-footer py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h3 class="text-center top-footer-title">Redes sociales</h3>
+                        <ul class="text-center p-0 m-0">
+                            <li class="list-top-footer">
+                                <a href="https://www.facebook.com/Torneo-Tigrecito-CD-Libertad-de-Sunchales-116167781880817/" target="_blank">
+                                    <i class="fab fa-facebook-square fa-2x facebook-icon"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 mt-3 mt-lg-0">
+                        <h3 class="text-center top-footer-title">Links internos</h3>
+                        <ul class="text-center p-0 m-0">
+                            <li class="list-top-footer">
+                                <a href="{% url 'home' %}" class="list-top-footer-link">Home</a>
+                            </li>
+                            <li class="list-top-footer">
+                                <a href="{% url 'torneo' %}" class="list-top-footer-link">Torneo</a>
+                            </li>
+                            <li class="list-top-footer">
+                                <a href="{% url 'reglamento' %}" class="list-top-footer-link">Reglamento</a>
+                            </li>
+                            <li class="list-top-footer">
+                                <a href="{% url 'lista_buena_fe' %}" class="list-top-footer-link">Lista Buena Fe</a>
+                            </li>
+                            <li class="list-top-footer">
+                                <a href="{% url 'contacto' %}" class="list-top-footer-link">Contactanos</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 mt-3 mt-lg-0">
+                        <h3 class="text-center top-footer-title">Contacto</h3>
+                        <ul class="text-center p-0 m-0">
+                            <li class="list-top-footer d-flex justify-content-center">
+                                <i class="fas fa-phone pt-2 pr-1"></i>
+                                <p class="mb-0">3493 66-1443</p>
+                            </li>
+                            <li class="list-top-footer d-flex justify-content-center">
+                                <i class="fas fa-globe-americas pt-2 pr-1"></i>
+                                <a href="https://libertadsunchales.com.ar/" target="_blank" class="list-top-footer-messeger">Club Deportivo Libertad</a>
+                            </li>
+                            <li class="list-top-footer d-flex justify-content-center">
+                                <i class="fas fa-envelope pt-2 pr-1"></i>
+                                <a class="list-top-footer-messeger">luciano-colo@hotmail.com</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="bottom-footer py-2">
+            <div class="container">
+                <div class="text-center">
+                    <small class="font-weight-bold">Tigrecito 2018</small>
+                </div>
+                <div class="text-center">
+                    <small class="font-weight-bold">Desarrolladores: <a href="#" class="developer">Emiliano Buffet </a> & <a href="https://lucasferrero.me" class="developer" target="_blank"> Lucas Ferrero</a></small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Libraries -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="{% static '/js/carousel.js' %}"></script>
+    <script src="{% static '/js/global.js' %}"></script>
+    <script src="{% static '/js/contact.js' %}"></script>
+    {% block extrajs %}
+    {% endblock %}
+</body>
+
+</html>

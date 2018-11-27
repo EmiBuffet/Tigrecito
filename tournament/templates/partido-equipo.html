@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner-container">
+    <div class="container d-flex justify-content-center align-items-center h-100 position-relative
+		banner-heading">
+        <h1 class="banner-title animated bounceInDown">{{ club.name }} - {{ categoria }}</h1>
+    </div>
+    <div class="banner-overlay"></div>
+
+    <!-- listado partidos sin jugar -->
+    <div class="white-container py-3">
+        <div class="container">
+            <h2 class="font-weight-bold py-1">Próximos partidos</h2>
+            {%if partidos.noJugados|length > 0%}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha y hora</th>
+                            <th scope="col">Club A</th>
+                            <th scope="col">Club B</th>
+                            <th scope="col">Cancha N°</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for partido in partidos.noJugados%}
+                        <tr>
+                            <td class="match-date" data-matchDate="{{partido.starDate|date:'d-m-Y'}}">
+                                {{partido.starDate|date:"d/m/Y - G:i"}}
+                            </td>
+                            {%if club.id == partido.idClub_Category_home.id%}
+                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            {%else%}
+                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            {%endif%}
+                            <td>{{partido.idFootbalField}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {%else%}
+            <p>Ningún partido fue encontrado.</p>
+            {%endif%}
+        </div>
+    </div>
+
+    <!-- Partidos jugados -->
+    <div class="white-container py-3">
+        <div class="container">
+            <h2 class="font-weight-bold py-1">Últimos partidos jugados</h2>
+            {% if partidos.jugados|length > 0%}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha y hora</th>
+                            <th scope="col">Club A</th>
+                            <th scope="col">Resultado</th>
+                            <th scope="col">Club B</th>
+                            <th scope="col">Cancha N°</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for partido in partidos.jugados%}
+                        {%if partido.homeGoals > partido.awayGoals and partido.idClub_Category_home.id == club.id or partido.awayGoals > partido.homeGoals and partido.idClub_Category_away.id == club.id %}
+                        <tr class="table-success">
+                            <td>{{partido.starDate|date:"d/m/Y - G:i"}}</td>
+                            {%if club.id == partido.idClub_Category_home.id%}
+                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td class="text-center">
+                                {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
+                                <strong>{{partido.homeGoals}} - {{partido.awayGoals}}</strong>
+                                {%else%}
+                                <strong>{{partido.homeGoals}}({{partido.homePenaltis}}) - {{partido.awayGoals}}({{partido.awayPenaltis}})</strong>
+                                {%endif%}
+                            </td>
+                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            {%else%}
+                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td class="text-center">
+                                {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
+                                <strong>{{partido.awayGoals}} - {{partido.homeGoals}}</strong>
+                                {%else%}
+                                <strong>{{partido.awayGoals}}({{partido.awayPenaltis}}) - {{partido.homeGoals}}({{partido.homePenaltis}})</strong>
+                                {%endif%}
+                            </td>
+                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            {%endif%}
+                            <td>{{partido.idFootbalField}}</td>
+                        </tr>
+                        {%elif partido.homePenaltis > partido.awayPenaltis and club.id == partido.idClub_Category_home.id or partido.awayPenaltis > partido.homePenaltis and club.id == partido.idClub_Category_away.id%}
+                        <tr class="table-success">
+                            <td>{{partido.starDate|date:"d/m/Y - G:i"}}</td>
+                            {%if club.id == partido.idClub_Category_home.id%}
+                            <!-- Traer el ID de cada equipo en los partidos -->
+                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td class="text-center">
+                                {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
+                                <strong>{{partido.homeGoals}} - {{partido.awayGoals}}</strong>
+                                {%else%}
+                                <strong>{{partido.homeGoals}}({{partido.homePenaltis}}) - {{partido.awayGoals}}({{partido.awayPenaltis}})</strong>
+                                {%endif%}
+                            </td>
+                            <td>{{partido.idClub_Category_away}}</td>
+                            {%else%}
+                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td class="text-center">
+                                {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
+                                <strong>{{partido.awayGoals}} - {{partido.homeGoals}}</strong>
+                                {%else%}
+                                <strong>{{partido.awayGoals}}({{partido.awayPenaltis}}) - {{partido.homeGoals}}({{partido.homePenaltis}})</strong>
+                                {%endif%}
+                            </td>
+                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            {%endif%}
+                            <td>{{partido.idFootbalField}}</td>
+                        </tr>
+                        {%else%}
+                        <tr>
+                            <td>{{partido.starDate|date:"d/m/Y - G:i"}}</td>
+                            {%if club.id == partido.idClub_Category_home.id%}
+                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td class="text-center">
+                                {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
+                                <strong>{{partido.homeGoals}} - {{partido.awayGoals}}</strong>
+                                {%else%}
+                                <strong>{{partido.homeGoals}}({{partido.homePenaltis}}) - {{partido.awayGoals}}({{partido.awayPenaltis}})</strong>
+                                {%endif%}
+                            </td>
+                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            {%else%}
+                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td class="text-center">
+                                {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
+                                <strong>{{partido.awayGoals}} - {{partido.homeGoals}}</strong>
+                                {%else%}
+                                <strong>{{partido.awayGoals}}({{partido.awayPenaltis}}) - {{partido.homeGoals}}({{partido.homePenaltis}})</strong>
+                                {%endif%}
+                            </td>
+                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            {%endif%}
+                            <td>{{partido.idFootbalField}}</td>
+                        </tr>
+                        {%endif%}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {%else%}
+            <p>No encontramos ningún partido.</p>
+            {%endif%}
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        "use strict";
+        let partidosNoJugados = document.querySelectorAll('.match-date')
+        let today = new Date()
+        today = today.getDate().toString() + '-' + (today.getMonth() + 1).toString() + '-' + today.getFullYear().toString()
+        partidosNoJugados.forEach(function(el) {
+            if (el.dataset["matchdate"] === today) {
+                el.innerHTML = `${el.innerHTML}
+				<span class="badge badge-primary ml-2">HOY<span>`;
+            }
+        })
+    </script>
+    {% endblock %}

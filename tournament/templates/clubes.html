@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner-container">
+	<div class="container d-flex justify-content-center align-items-center h-100 position-relative
+      banner-heading">
+		<h1 class="banner-title animated bounceInDown">Torneo 2018</h1>
+	</div>
+	<div class="banner-overlay"></div>
+</div>
+
+<main>
+	<div class="heading-container p-4">
+		<div class="container">
+			<h1 class="heading-text text-center">Clubes Participantes</h1>
+		</div>
+	</div>
+
+	<div class="white-container py-5">
+		<div class="container">
+
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Escudo</th>
+						<th scope="col">Equipo</th>
+						<th scope="col">Categorias</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Hacer un loop y rellenar los tr con la info que viene de la DB. Armar el PATH... -->
+					{% for club in clubs %}
+					<tr>
+						<td>
+							<div class="d-flex justify-content-center align-items-center h-100">
+								<img src="{{ club.shield.url }}" width="25px">
+							</div>
+						</td>
+						<td>{{ club.name }}
+						</td>
+						<td>{% for categoria in club.category.all %}
+							<a href="/partido/equipo/{{club.name|cut:' '|lower}}/{{club.id}}/{{categoria.id}}">{{ categoria }}</a>
+							{% endfor %}
+						</td>
+					</tr>
+				</tbody>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</main>
+
+
+{% endblock %}

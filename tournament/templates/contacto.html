@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner-container">
+    <div class="container d-flex justify-content-center align-items-center h-100 position-relative
+      banner-heading">
+        <h1 class="banner-title animated bounceInDown">Contacto</h1>
+    </div>
+    <div class="banner-overlay"></div>
+</div>
+<main>
+    <div class="heading-container p-4">
+        <div class="container">
+            <h1 class="heading-text text-center">Formulario y datos de contacto</h1>
+        </div>
+    </div>
+    <div class="white-container py-2">
+        <div class="container">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">email: <strong>luciano-colo@hotmail.com</strong></li>
+                <li class="list-group-item">telefono: <strong>3493 66-1443</strong>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="white-container py-2">
+        <div class="container py-3">
+            <div id="alertContainer"></div>
+            <!-- TODO: Agregar reCaptcha -->
+            <form id="contact-form" class="needs-validation border p-3" novalidate>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email1">Email(*)</label>
+                    <input type="email" class="form-control" id="email1" aria-describedby="tu email" placeholder="Ingresa tu email" required>
+                    <div class="invalid-feedback">Ingresa un correo válido</div>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Asunto(*)</label>
+                    <input type="text" class="form-control" id="subject" placeholder="Asunto" required>
+                    <div class="invalid-feedback">Ingresa un asunto</div>
+                </div>
+                <div class="form-group">
+                    <label for="form-message">Mensaje(*)</label>
+                    <textarea class="form-control" id="form-message" rows="3" required minlength="5" maxlength="300"></textarea>
+                    <div class="invalid-feedback">Ingresa un mensaje</div>
+                </div>
+                <button type="submit" id="contact-button" class="btn btn-dark btn-lg btn-block tiger-button">Enviar</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

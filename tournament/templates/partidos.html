@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner-container">
+    <div class="container d-flex justify-content-center align-items-center h-100 position-relative
+		banner-heading">
+        <h1 class="banner-title animated bounceInDown">Partidos</h1>
+    </div>
+    <div class="banner-overlay"></div>
+</div>
+
+<div class="heading-container p-md-5 p-2 mt-5 mb-5">
+    <div class="container" id="buscadorPartido" v-if="clubs.length > 0">
+        <h1 class="heading-text text-center pb-2">Buscar equipo</h1>
+
+        <form class="mt-2">
+
+            <div class="form-row d-md-flex justify-content-center">
+                <div class="col-md-4 form-group">
+                    <input type="text" class="form-control search-box" id="clubName" placeholder="Nombre del club" @keyup="searchByClubName" v-if="!hasSelectedClub">
+                    <small id="emailHelp" class="form-text text-muted" v-show="!hasSelectedClub && resultSearch.length === 0 && isSearching">No encontramos ningún equipo con ese nombre.</small>
+                    <div class="list-group search-result" v-if="resultSearch.length > 0 && !hasSelectedClub">
+                        <a class="list-group-item list-group-item-action" v-for="(club,i) in resultSearch" @click="selectClub(i)">
+                            <img :src="club.shield" width="25px">
+                            [%club.name%]
+                        </a>
+                    </div>
+                    <div class="selected-club" v-if="hasSelectedClub">
+                        <a class="badge badge-dark close-button" @click="onRemoveSelectedClub()">X</a>
+                        <img :src="selectedClub.shield" width="25px">
+                        [%selectedClub.name%]
+                    </div>
+                </div>
+
+                <div class="col-md-2 form-group">
+                    <select class="custom-select" :disabled="!hasSelectedClub">
+                        <option selected>Categoría</option>
+                        <option v-for="category in selectedClub.category" :value="category.id" @click="onSelectCategoryId(category.id)">[%category.description%]</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <button type="button" class="btn btn-primary btn-block" :disabled="!matchInfo.categoryId" @click="onShowMatches()">Ver partidos</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+<!--<script src="{% static 'js/listadoPartidos.js' %}"></script>-->
+<script src="{% static 'js/buscadorPartido.js' %}"></script>
+{% endblock %}

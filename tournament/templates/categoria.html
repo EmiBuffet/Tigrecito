@@ -1,0 +1,540 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<div class="banner-container">
+    <div class="container d-flex justify-content-center align-items-center h-100 position-relative
+      banner-heading">
+        <h1 class="banner-title animated bounceInDown text-center">Categoria {{ categoria }}</h1>
+    </div>
+    <div class="banner-overlay"></div>
+</div>
+
+<main>
+    <div class="heading-container p-4">
+        <div class="container">
+            <h1 class="heading-text text-center">Zonas</h1>
+        </div>
+    </div>
+
+    <div class="white-container py-3">
+        <div class="container">
+            <a href="#playoffs" class="btn btn-warning btn-lg btn-block my-3 btn-playoff">
+                Ver fase final
+            </a>
+            {% for zona in calculos|dictsort:"zona.idZone.id" %}
+            <h2 class="font-weight-bold py-1">{{ zona.zona.idZone}}</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Puesto</th>
+                            <th scope="col">Club</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Puntos">PTS</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos jugados">PJ</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos ganados">PG</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos perdidos">PP</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos empatados">PE</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles a favor">G.Favor</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles en contra">G.Contra
+                            </th>
+                            <th scope="col" data-toggle="tooltip" data-placement="left" title="Diferencia de goles">G.Diff
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for equipo in zona.lista_equipos %}
+                        {% if equipo.partidos_jugados is 0 or equipo.partidos_jugados is null%}
+                        <tr class="clickable-row" data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
+                            <td>{{forloop.counter}}</td>
+                            <td><img src="{{ equipo.club.shield.url }}" width="25px"> {{ equipo.club }}</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        {%else%}
+                        <tr class="clickable-row" data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
+                            <td>{{forloop.counter}}</td>
+                            <td><img src="{{ equipo.club.shield.url }}" width="25px"> {{ equipo.club }}</td>
+                            <td>{{ equipo.puntos }}</td>
+                            <td>{{ equipo.partidos_jugados }}</td>
+                            <td>{{ equipo.partidos_ganados }}</td>
+                            <td>{{ equipo.partidos_perdidos }}</td>
+                            <td>{{ equipo.partidos_empatados }}</td>
+                            <td>{{ equipo.goles_a_favor }}</td>
+                            <td>{{ equipo.goles_en_contra }}</td>
+                            <td>{{ equipo.dif_goles }}</td>
+                        </tr>
+                        {%endif%}
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- se muestra solo si se encuentran los cuartos de finales -->
+    <div class="heading-container p-4">
+        <div class="container">
+            <h1 class="heading-text text-center" id="playoffs">Fase final</h1>
+        </div>
+    </div>
+
+    <div class="white-container py-3">
+        <div class="container">
+            <h2 class="heading-text py-3">Copa de Oro 🏆</h2>
+            {%if playoff.gold.cuartos|length is 4%}
+            <h3 class="text-center">Cuartos de final</h3>
+            {%for item in playoff.gold.cuartos%}
+            <div class="row border mt-5 {%if forloop.first is True%}mt-lg-1 {%else%}mt-lg-5 {%endif%}">
+                <div class="col-lg-1 border-right d-flex justify-content-center align-items-center position-relative py-2 pt-lg-0 mb-3 mb-lg-0">
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div>{{item.idTypeOfMatch|cut:"Cuarto " }}</div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                </div>
+                <div class="col-lg-11 p-0">
+                    <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_home.name}}
+                        </div>
+                        <div class="px-3">
+                            <!-- Preguntar si el equipo home metio goles y penales. -->
+                            {%if item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is null%}
+                            {{item.idMatch.homeGoals}}
+                            {%elif item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is not null%}
+                            {{item.idMatch.homeGoals}}({{item.idMatch.homePenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_away.name}}
+                        </div>
+                        <div class="px-3">
+                            {%if item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is null%}
+                            {{item.idMatch.awayGoals}}
+                            {%elif item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is not null%}
+                            {{item.idMatch.awayGoals}}({{item.idMatch.awayPenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+
+            {%else%}
+            <h3 class="text-center">Cuartos de final (pronto)</h3>
+            <p class="text-center">-</p>
+            {%endif%}
+        </div>
+        <!-- Fin cuartos GOLD. -->
+
+        <!-- Semifinal -->
+        <div class="container mt-3">
+            {% if playoff.gold.semis|length is 2 %}
+            <h3 class="pt-4 pl-2 text-center m0">Semi final</h3>
+            {%for item in playoff.gold.semis%}
+            <div class="row border mt-5 {%if forloop.first is True%}mt-lg-1 {%else%}mt-lg-5 {%endif%}">
+                <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div>{{item.idTypeOfMatch|cut:"Semifinal " }}</div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                </div>
+                <div class="col-lg-11 p-0">
+                    <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_home.name}}
+                        </div>
+                        <div class="px-3">
+                            <!-- Preguntar si el equipo home metio goles y penales. -->
+                            {%if item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is null%}
+                            {{item.idMatch.homeGoals}}
+                            {%elif item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is not null%}
+                            {{item.idMatch.homeGoals}}({{item.idMatch.homePenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_away.name}}
+                        </div>
+                        <div class="px-3">
+                            {%if item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is null%}
+                            {{item.idMatch.awayGoals}}
+                            {%elif item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is not null%}
+                            {{item.idMatch.awayGoals}}({{item.idMatch.awayPenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {%else%}
+            <h3 class="pt-4 pl-2 text-center m0">Semi final (pronto)</h3>
+            <p class="text-center">-</p>
+            {%endif%}
+        </div>
+        <!-- Fin SEMIFINAL GOLD -->
+
+        <!-- Tercer puesto GOLD -->
+        <div class="container">
+            {% if playoff.gold.tercerPuesto|length is 1 %}
+            <h3 class="pt-4 pl-2 text-center m0">Tercer puesto</h3>
+            {%for item in playoff.gold.tercerPuesto%}
+            <div class="row border mt-5 mt-lg-3">
+                <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div>A</div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                </div>
+                <div class="col-lg-11 p-0">
+                    <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_home.name}}
+                        </div>
+                        <div class="px-3">
+                            <!-- Preguntar si el equipo home metio goles y penales. -->
+                            {%if item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is null%}
+                            {{item.idMatch.homeGoals}}
+                            {%elif item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is not null%}
+                            {{item.idMatch.homeGoals}}({{item.idMatch.homePenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_away.name}}
+                        </div>
+                        <div class="px-3">
+                            {%if item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is null%}
+                            {{item.idMatch.awayGoals}}
+                            {%elif item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is not null%}
+                            {{item.idMatch.awayGoals}}({{item.idMatch.awayPenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {%else%}
+            <h3 class="pt-4 pl-2 text-center m0">Tercer puesto (no se juega)</h3>
+            <p class="text-center">-</p>
+            {%endif%}
+
+
+        </div>
+
+
+        <!-- FINAL puesto GOLD -->
+        <div class="container">
+            {% if playoff.gold.final|length is 1 %}
+            <h3 class="pt-4 pl-2 text-center m0">Final</h3>
+            {%for item in playoff.gold.final%}
+            <div class="row border mt-5 mt-lg-3">
+                <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div>A</div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                </div>
+                <div class="col-lg-11 p-0">
+                    <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_home.name}}
+                        </div>
+                        <div class="px-3">
+                            <!-- Preguntar si el equipo home metio goles y penales. -->
+                            {%if item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is null%}
+                            {{item.idMatch.homeGoals}}
+                            {%elif item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is not null%}
+                            {{item.idMatch.homeGoals}}({{item.idMatch.homePenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_away.name}}
+                        </div>
+                        <div class="px-3">
+                            {%if item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is null%}
+                            {{item.idMatch.awayGoals}}
+                            {%elif item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is not null%}
+                            {{item.idMatch.awayGoals}}({{item.idMatch.awayPenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {%else%}
+            <h3 class="pt-4 pl-2 text-center m0">Final (pronto)</h3>
+            <p class="text-center">-</p>
+            {%endif%}
+
+
+        </div>
+    </div>
+    <!-- FIN GOLD. FIN WHITE CONTAINER -->
+
+    <!-- COPA DE PLATA -->
+    <div class="white-container py-4">
+        <hr>
+        <div class="container">
+            <h2 class="heading-text py-3">Copa de Plata</h2>
+            {%if playoff.silver.cuartos|length is 4%}
+            <h3 class="text-center">Cuartos de final</h3>
+            {%for item in playoff.silver.cuartos%}
+            <div class="row border mt-5 {%if forloop.first is True%}mt-lg-1 {%else%}mt-lg-5 {%endif%}">
+                <div class="col-lg-1 border-right d-flex justify-content-center align-items-center position-relative py-2 pt-lg-0 mb-3 mb-lg-0">
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div>{{item.idTypeOfMatch|cut:"Cuarto " }}</div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                </div>
+                <div class="col-lg-11 p-0">
+                    <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_home.name}}
+                        </div>
+                        <div class="px-3">
+                            <!-- Preguntar si el equipo home metio goles y penales. -->
+                            {%if item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is null%}
+                            {{item.idMatch.homeGoals}}
+                            {%elif item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is not null%}
+                            {{item.idMatch.homeGoals}}({{item.idMatch.homePenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_away.name}}
+                        </div>
+                        <div class="px-3">
+                            {%if item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is null%}
+                            {{item.idMatch.awayGoals}}
+                            {%elif item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is not null%}
+                            {{item.idMatch.awayGoals}}({{item.idMatch.awayPenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+
+            {%else%}
+            <h3 class="text-center">Cuartos de final (pronto)</h3>
+            <p class="text-center">-</p>
+            {%endif%}
+        </div>
+        <!-- Fin cuartos SILVER. -->
+
+        <!-- Semifinal -->
+        <div class="container mt-3">
+            {% if playoff.silver.semis|length is 2 %}
+            <h3 class="pt-4 pl-2 text-center m0">Semi final</h3>
+            {%for item in playoff.silver.semis%}
+            <div class="row border mt-5 {%if forloop.first is True%}mt-lg-1 {%else%}mt-lg-5 {%endif%}">
+                <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div>{{item.idTypeOfMatch|cut:"Semifinal " }}</div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                </div>
+                <div class="col-lg-11 p-0">
+                    <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_home.name}}
+                        </div>
+                        <div class="px-3">
+                            <!-- Preguntar si el equipo home metio goles y penales. -->
+                            {%if item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is null%}
+                            {{item.idMatch.homeGoals}}
+                            {%elif item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is not null%}
+                            {{item.idMatch.homeGoals}}({{item.idMatch.homePenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_away.name}}
+                        </div>
+                        <div class="px-3">
+                            {%if item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is null%}
+                            {{item.idMatch.awayGoals}}
+                            {%elif item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is not null%}
+                            {{item.idMatch.awayGoals}}({{item.idMatch.awayPenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {%else%}
+            <h3 class="pt-4 pl-2 text-center m0">Semi final (pronto)</h3>
+            <p class="text-center">-</p>
+            {%endif%}
+        </div>
+        <!-- Fin SEMIFINAL SILVER -->
+
+        <!-- Tercer puesto SILVER -->
+        <div class="container">
+            {% if playoff.silver.tercerPuesto|length is 1 %}
+            <h3 class="pt-4 pl-2 text-center m0">Tercer puesto</h3>
+            {%for item in playoff.silver.tercerPuesto%}
+            <div class="row border mt-5 mt-lg-3">
+                <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div>A</div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                </div>
+                <div class="col-lg-11 p-0">
+                    <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_home.name}}
+                        </div>
+                        <div class="px-3">
+                            <!-- Preguntar si el equipo home metio goles y penales. -->
+                            {%if item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is null%}
+                            {{item.idMatch.homeGoals}}
+                            {%elif item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is not null%}
+                            {{item.idMatch.homeGoals}}({{item.idMatch.homePenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_away.name}}
+                        </div>
+                        <div class="px-3">
+                            {%if item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is null%}
+                            {{item.idMatch.awayGoals}}
+                            {%elif item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is not null%}
+                            {{item.idMatch.awayGoals}}({{item.idMatch.awayPenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {%else%}
+            <h3 class="pt-4 pl-2 text-center m0">Tercer puesto (no se juega)</h3>
+            <p class="text-center">-</p>
+            {%endif%}
+
+
+        </div>
+
+
+        <!-- FINAL puesto SILVER -->
+        <div class="container">
+            {% if playoff.silver.final|length is 1 %}
+            <h3 class="pt-4 pl-2 text-center m0">Final</h3>
+            {%for item in playoff.silver.final%}
+            <div class="row border mt-5 mt-lg-3">
+                <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div>A</div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                </div>
+                <div class="col-lg-11 p-0">
+                    <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_home.name}}
+                        </div>
+                        <div class="px-3">
+                            <!-- Preguntar si el equipo home metio goles y penales. -->
+                            {%if item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is null%}
+                            {{item.idMatch.homeGoals}}
+                            {%elif item.idMatch.homeGoals is not null and item.idMatch.homePenaltis is not null%}
+                            {{item.idMatch.homeGoals}}({{item.idMatch.homePenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
+                        <div class="flex-grow-1 text-center">
+                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            {{item.idMatch.idClub_Category_away.name}}
+                        </div>
+                        <div class="px-3">
+                            {%if item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is null%}
+                            {{item.idMatch.awayGoals}}
+                            {%elif item.idMatch.awayGoals is not null and item.idMatch.awayPenaltis is not null%}
+                            {{item.idMatch.awayGoals}}({{item.idMatch.awayPenaltis}})
+                            {%else%}
+                            -
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {%else%}
+            <h3 class="pt-4 pl-2 text-center m0">Final (pronto)</h3>
+            <p class="text-center">-</p>
+            {%endif%}
+
+
+        </div>
+
+    </div>
+</main>
+
+
+{% endblock %}

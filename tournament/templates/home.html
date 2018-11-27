@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="banner-container banner-home">
+    <div class="container d-flex justify-content-center align-items-center h-100 position-relative
+  banner-heading">
+        <h1 class="banner-title animated flipInY text-center">Tigrecito Sunchales</h1>
+    </div>
+    <div class="banner-overlay overlay-home"></div>
+</div>
+
+<div class="heading-container p-4">
+    <div class="container">
+        <h1 class="heading-text text-center">25° Edición del Tigrecito</h1>
+    </div>
+</div>
+<main>
+    <div class="card-main-container py-5">
+        <div class="container d-lg-flex justify-content-between">
+
+            <section class="card-container mt-4 mt-lg-0 px-2">
+                <a href="/clubes">
+                    <header class="card-info-header py-3">
+                        <i class="fas fa-users fa-2x card-tiger-icon rounded-circle border border-dark"></i>
+                    </header>
+                    <div>
+                        <h1 class="text-center">Clubes</h1>
+                        <p class="text-center">Ver clubes participantes</p>
+                    </div>
+                </a>
+            </section>
+
+            <section class="card-container mt-4 mt-lg-0 px-2">
+                <a href="/partidos">
+                    <header class="card-info-header py-3">
+                        <i class="fas fa-futbol fa-2x card-tiger-icon rounded-circle border border-dark"></i>
+                    </header>
+                    <div>
+                        <h1 class="text-center">Partidos</h1>
+                        <p class="text-center">Cancha, horario y resultados de cada uno de los partidos</p>
+                    </div>
+                </a>
+            </section>
+
+            <section class="card-container mt-4 mt-lg-0 px-2">
+                <a href="/lista_buena_fe">
+                    <header class="card-info-header py-3">
+                        <i class="fas fa-print  fa-2x card-tiger-icon rounded-circle border border-dark"></i>
+                    </header>
+                    <div>
+                        <h1 class="text-center">Lista de Buena Fe</h1>
+                        <p class="text-center">Descarga la Lista de Buena Fe</p>
+                    </div>
+                </a>
+            </section>
+
+            <section class="card-container mt-4 mt-lg-0 px-2">
+                <a href="/reglamento">
+                    <header class="card-info-header py-3">
+                        <i class="fas fa-book-open fa-2x card-tiger-icon rounded-circle border border-dark"></i>
+                    </header>
+                    <div>
+                        <h1 class="text-center">Reglamento</h1>
+                        <p class="text-center">Descarga el reglamento del Tigrecito</p>
+                    </div>
+                </a>
+            </section>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="carousel-container">
+            <!--slider begins -->
+            <div class="slider">
+                <div class="img img1">
+                    <div class="caption-container">
+                        <h1 class="caption-title text-center">Club Deportivo Libertad</h1>
+                        <p class="caption-description">Disfruta de las instalaciones del club.</p>
+                    </div>
+                </div>
+                <div class="img img2">
+                    <div class="caption-container">
+                        <h1 class="caption-title text-center">Balneario</h1>
+                        <p class="caption-description">Disfruta la nueva temporada de pileta.</p>
+                    </div>
+                </div>
+                <div class="img img3">
+                    <div class="caption-container">
+                        <h1 class="caption-title text-center">Estadio Dr. Plácido Tita</h1>
+                        <p class="caption-description">Cancha principal del Club.</p>
+                    </div>
+                </div>
+                <div class="img img4">
+                    <div class="caption-container">
+                        <h1 class="caption-title text-center">Predio Libertad</h1>
+                        <p class="caption-description">En el predio libertad se desarrolla el torneo Tigrecito.</p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- slider end -->
+    </div>
+
+    <h1 class="heading-text text-center py-4">Sponsors</h1>
+
+    <div class="sponsor-container">
+        <section class="container">
+
+            <div class="sponsor-slider">
+                <div>
+                    <img class="img-fluid" src="{% static 'images/clients/bhy.jpg' %}" alt="nhy" />
+                </div>
+                <div>
+                    <img class="img-fluid" src="{% static 'images/clients/PrevencionSalud.jpg' %}" alt="sancor seguros" />
+                </div>
+                <div>
+                    <img class="img-fluid" src="{% static 'images/clients/SancorSeguros.jpg' %}" alt="prevencion salud" />
+                </div>
+                <div>
+                    <img class="img-fluid" style="width: 200px" src="{% static 'images/clients/MutualLibertad.jpg' %}" alt="mutual libertad" />
+                </div>
+                <div>
+                    <img class="img-fluid" style="width: 250px;" src="{% static 'images/clients/DiarioCastellanos.png' %}" alt="diario castellanos" />
+                </div>
+                <div>
+                    <img class="img-fluid" style="width: 260px" src="{% static 'images/clients/AlcidesCalvo.jpg' %}" alt="alcides calvo" />
+                </div>
+                <div>
+                    <img class="img-fluid" style="width: 150px" src="{% static 'images/clients/MunicipalidadSunchales.jpg' %}" alt="municipalidad sunchales" />
+                </div>
+                <div>
+                    <img class="img-fluid" style="width: 250px;" src="{% static 'images/clients/BellVille.png' %}" alt="bell ville" />
+                </div>
+        </section>
+    </div>
+</main>
+
+{% endblock %}
