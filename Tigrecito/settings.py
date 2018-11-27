@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'vur(1!*$oc)09=3g@!=8_l%z1d@&2$
 # DEBUG = True
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = ['tigrecitosunchales.herokuapp.com', '127.0.0.1', 'tigrecitosunchales.com']
+ALLOWED_HOSTS = ['tigrecitosunchales.herokuapp.com', '127.0.0.1', '.tigrecitosunchales.com']
 
 # Application definition
 
