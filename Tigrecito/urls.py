@@ -34,6 +34,6 @@ urlpatterns = [
     path('api/clubes', views.CategoriasClub, name="api_clubes"),
     path('partido/equipo/<str:clubName>/<str:clubId>/<str:categoryId>', views.partidosEquipo)
 ]
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
-               static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG is True:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
+                   static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
