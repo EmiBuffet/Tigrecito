@@ -150,9 +150,9 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'tigrecitosunchales@gmail.com'
 EMAIL_HOST_PASSWORD = 'contra31'
 
-GDAL_LIBRARY_PATH = "/app/.heroku/vendor/lib/libgdal.so"
+"""GDAL_LIBRARY_PATH = "/app/.heroku/vendor/lib/libgdal.so"
 GEOS_LIBRARY_PATH = "/app/.heroku/vendor/lib/libgeos_c.so"
-"""DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'"""
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'"""
 
 # django_heroku.settings(locals())
 

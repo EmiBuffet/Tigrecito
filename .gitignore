@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# Text backup files
+*.bak
+
+#Database
+*.sqlite3
+
 ### Django ###
 *.log
 *.pot
