@@ -1,1 +1,1 @@
-web: gunicorn Tigrecito.wsgi --log-file -
+web: gunicorn locallibrary.wsgi --log-file -
