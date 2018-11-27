@@ -1,0 +1,360 @@
+body {
+  background-color: #e9ebee;
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+a {
+  color: inherit;
+  font-weight: bold;
+}
+a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Ubuntu', sans-serif;
+}
+p {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: normal;
+}
+
+::selection {
+  background-color: var(--black);
+  color: var(--yellow);
+}
+
+/* Variables */
+:root {
+  --yellow: #fff000;
+  --black: #232323;
+  --semi-white: #aabed1;
+}
+/* Utilities */
+.white-container {
+  background-color: white;
+  color: var(--black);
+}
+.wild-font {
+  font-family: 'Trade Winds', cursive;
+  font-weight: normal;
+  font-size: 2em;
+  color: var(--yellow);
+}
+.heading-text {
+  color: var(--black);
+  font-weight: bolder;
+  margin: 0;
+}
+.tiger-button {
+	color: var(--yellow);
+	font-weight: bold;
+}
+.tiger-button:hover {
+	color: var(--yellow);
+}
+/* End utilities */
+
+.banner-container {
+  height: 45vh;
+  background-color: var(--black);
+  background: url("/static/images/banners/banner-bg.jpeg") center/cover no-repeat;
+  position: relative;
+}
+.banner-overlay {
+  background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.banner-heading {
+  z-index: 10;
+}
+.banner-heading h1 {
+  font-weight: bolder;
+  font-size: 2.5em;
+}
+.banner-title {
+  text-shadow: 10px 10px 40px rgba(0, 0, 0, 0.6);
+}
+.banner-home {
+    height: 60vh !important;
+    background: url("/static/images/banners/field-banner.jpg") center/cover no-repeat;
+}
+.overlay-home {
+    opacity: 0.6;
+}
+/* end utilities */
+
+/* Menu styles */
+.main-menu a:hover {
+  border: none;
+}
+.main-menu {
+  background-color: var(--black);
+  color: var(--yellow);
+  box-shadow: 8px 0 25px rgba(0, 0, 0, 0.5);
+}
+.menu-item {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+.menu-link {
+  color: var(--yellow);
+  transition: all 0.28s ease-in-out;
+}
+.menu-link:hover {
+  background-color: var(--yellow);
+  color: var(--black)
+}
+
+a.menu-logo { /* we use specifity because there is a conflict between styles.*/
+  display: flex;
+  text-decoration: none;
+}
+.logo-image {
+  width: 50px;
+}
+.logo-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-hamburger {
+  color: var(--yellow);
+  border-color: var(--yellow);
+}
+/* end menu */
+
+/* Footer */
+.top-footer {
+  min-height: 20vh;
+  background-color: var(--black);
+  color: var(--semi-white);
+}
+.top-footer ::selection {
+  background-color: var(--yellow);
+  color: var(--black);
+}
+.top-footer-title {
+  color: var(--yellow);
+  font-weight: bolder;
+}
+.list-top-footer {
+  list-style: none;
+  font-weight: bold;
+  color: var(--yellow);
+  font-size: 1.3em;
+}
+.list-top-footer-link {
+  color: var(--yellow);
+  transition: box-shadow 0.4s ease-in-out;
+}
+.list-top-footer-link:hover, .list-top-footer-messeger:hover {
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 5px 0 white;
+}
+.list-top-footer-messeger {
+  font-weight: normal;
+  text-decoration: none;
+  color: var(--yellow);
+  transition: box-shadow 0.4s ease-in-out;
+}
+.facebook-icon {
+  color: var(--yellow);
+  transition: transform 0.6s ease-in-out;
+}
+.facebook-icon:hover {
+  transform: rotate(360deg) scale(1.4);
+}
+
+.bottom-footer {
+  min-height: 5vh;
+  background-color: black;
+}
+.developer {
+  color: var(--semi-white);
+}
+.developer:hover {
+  color: var(--white);
+}
+/* carousel */
+.img {
+  height: 95vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+	background-position: center;
+}
+.img1 {
+  background-image: url("/static/images/carousel/Club.jpg");
+}
+.img2 {
+  background-image: url("/static/images/carousel/Balneario.jpg");
+}
+.img3 {
+  background-image: url("/static/images/carousel/CanchaPrincipal.jpg");
+}
+.img4 {
+  background-image: url("/static/images/carousel/predio.jpg");
+}
+
+.caption-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.caption-title, .caption-description {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.3em;
+  border-radius: 5px;
+}
+.caption-title {
+  font-weight: bolder;
+  font-size: 3.3em;
+}
+.caption-description {
+  font-size: 1.3em;
+}
+
+/* Cards about. */
+.card-main-container {
+  background-color: var(--white);
+  color: var(--black);
+}
+.card-container {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+.card-container:hover {
+  background-color: var(--black);
+  color: var(--yellow);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+}
+.card-container:hover .card-tiger-icon {
+  color: var(--yellow);
+  border-color: var(--yellow) !important;
+  transform: rotate(360deg) scale(1.2);
+}
+.card-container a {
+  text-decoration: none;
+  color: inherit;
+}
+.card-info-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-tiger-icon {
+  padding: 0.5em;
+  color: var(--black);
+  border-width: 3px !important;
+  transition: all 0.4s ease-in-out;
+}
+
+/* Sponsor styles */
+.sponsor-container {
+  background-color: var(--white);
+}
+
+/* Torneo page */
+.clickable-row {
+  cursor: pointer;
+}
+
+
+/* Categoria page */
+.btn-playoff {
+
+	font-weight: bolder;
+}
+
+/* search partidos page */
+.search-box {
+	position: relative;
+}
+.search-result {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	left: 0;
+}
+.search-result a {
+	color: var(--black) !important;
+	cursor: pointer;
+}
+
+.selected-club {
+	width: 100%;
+	background-color: var(--white);
+	color: var(--black);
+	border-radius: 5px;
+	padding: 0.3em;
+	font-weight: bolder;
+	position: relative;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.close-button {
+	position: absolute;
+	right: 0;
+	top: 0;
+	font-weight: bolder;
+	font-size: 0.9em;
+	color: white !important;
+	cursor: pointer;
+}
+.bg-winner {
+    background-color:  #c3e6cb;
+}
+.playoff-date-match {
+    top: -15px;
+    width: 90%;
+}
+.playoff-date-match > span {
+    width: 100%;
+}
+.playoff-field-number {
+    bottom: -15px;
+    width:90%;
+}
+.playoff-field-number > span {
+    width: 100%;
+}
+
+/* Custom media queries. Those media queries are the same as boostrap. */
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+  .card-container {
+    width: 23%;
+  }
+  .banner-container {
+    height: 35vh;
+  }
+  .banner-heading h1 {
+    font-size: 4em;
+  }
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+}
