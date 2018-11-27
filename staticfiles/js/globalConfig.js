@@ -1,6 +1,6 @@
 'use strict';
 var HOST_DEV = 'http://127.0.0.1:8000'
-var HOST_PRODUC = 'http://tigrecitosunchales.herokuapp.com'
+var HOST_PRODUC = 'https://tigrecitosunchales.herokuapp.com'
 var HOST;
 
 // poner en false si se pone en producción.
