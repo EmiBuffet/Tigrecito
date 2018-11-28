@@ -13,7 +13,14 @@ class Club(models.Model):
     name = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     category = models.ManyToManyField(Category)
-    shield = models.ImageField()
+    shield = models.ImageField(null=True, blank=True)
+
+    @property
+    def image_url(self):
+        if self.shield:
+            return self.shield.url
+        else:
+            return "/static/images/Sin_Escudo.png"
 
     def __str__(self):
         return self.name
