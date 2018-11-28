@@ -47,7 +47,7 @@
                         {% if equipo.partidos_jugados is 0 or equipo.partidos_jugados is null%}
                         <tr class="clickable-row" data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
                             <td>{{forloop.counter}}</td>
-                            <td><img src="{{ equipo.club.shield.url }}" width="25px"> {{ equipo.club }}</td>
+                            <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club }} ({{equipo.club.city}})</td>
                             <td>0</td>
                             <td>0</td>
                             <td>0</td>
@@ -60,7 +60,7 @@
                         {%else%}
                         <tr class="clickable-row" data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
                             <td>{{forloop.counter}}</td>
-                            <td><img src="{{ equipo.club.shield.url }}" width="25px"> {{ equipo.club }}</td>
+                            <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club.city }}</td>
                             <td>{{ equipo.puntos }}</td>
                             <td>{{ equipo.partidos_jugados }}</td>
                             <td>{{ equipo.partidos_ganados }}</td>

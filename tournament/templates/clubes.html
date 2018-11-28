@@ -36,7 +36,7 @@
 								<img src="{{ club.image_url }}" width="25px">
 							</div>
 						</td>
-						<td>{{ club.name }}
+						<td>{{ club.name }} ({{club.city}})
 						</td>
 						<td>{% for categoria in club.category.all %}
 							<a href="/partido/equipo/{{club.name|cut:' '|lower}}/{{club.id}}/{{categoria.id}}">{{ categoria }}</a>
