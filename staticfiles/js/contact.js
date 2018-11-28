@@ -31,7 +31,7 @@ if(contactForm) {
 // ###functions###
 
 function sendMessage(obj) {
-	const HOST = 'http://127.0.0.1:8000/contacto/'
+	//const HOST = 'http://127.0.0.1:8000/contacto/'
 	const HEADERS = new Headers({
 		'Accept': 'text/json',
 		'Content-Type': 'text/json',
@@ -39,7 +39,7 @@ function sendMessage(obj) {
 	})
 	contactButton.disabled = true
 	contactButton.textContent = 'Enviando ...'
-	fetch(HOST,{
+	fetch(`${HOST}/contacto/`,{
 		method: 'POST',
 		credentials: "same-origin",
 		headers: HEADERS,
