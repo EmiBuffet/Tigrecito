@@ -30,11 +30,11 @@
                                 {{partido.starDate|date:"d/m/Y - G:i"}}
                             </td>
                             {%if club.id == partido.idClub_Category_home.id%}
-                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
-                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td><img src="{{ partido.idClub_Category_home.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td><img src="{{ partido.idClub_Category_away.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
                             {%else%}
-                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
-                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td><img src="{{ partido.idClub_Category_away.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td><img src="{{ partido.idClub_Category_home.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
                             {%endif%}
                             <td>{{partido.idFootbalField}}</td>
                         </tr>
@@ -70,7 +70,7 @@
                         <tr class="table-success">
                             <td>{{partido.starDate|date:"d/m/Y - G:i"}}</td>
                             {%if club.id == partido.idClub_Category_home.id%}
-                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td><img src="{{ partido.idClub_Category_home.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
                             <td class="text-center">
                                 {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
                                 <strong>{{partido.homeGoals}} - {{partido.awayGoals}}</strong>
@@ -78,9 +78,9 @@
                                 <strong>{{partido.homeGoals}}({{partido.homePenaltis}}) - {{partido.awayGoals}}({{partido.awayPenaltis}})</strong>
                                 {%endif%}
                             </td>
-                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td><img src="{{ partido.idClub_Category_away.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
                             {%else%}
-                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td><img src="{{ partido.idClub_Category_away.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
                             <td class="text-center">
                                 {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
                                 <strong>{{partido.awayGoals}} - {{partido.homeGoals}}</strong>
@@ -88,7 +88,7 @@
                                 <strong>{{partido.awayGoals}}({{partido.awayPenaltis}}) - {{partido.homeGoals}}({{partido.homePenaltis}})</strong>
                                 {%endif%}
                             </td>
-                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td><img src="{{ partido.idClub_Category_home.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
                             {%endif%}
                             <td>{{partido.idFootbalField}}</td>
                         </tr>
@@ -97,7 +97,7 @@
                             <td>{{partido.starDate|date:"d/m/Y - G:i"}}</td>
                             {%if club.id == partido.idClub_Category_home.id%}
                             <!-- Traer el ID de cada equipo en los partidos -->
-                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td><img src="{{ partido.idClub_Category_home.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
                             <td class="text-center">
                                 {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
                                 <strong>{{partido.homeGoals}} - {{partido.awayGoals}}</strong>
@@ -107,7 +107,7 @@
                             </td>
                             <td>{{partido.idClub_Category_away}}</td>
                             {%else%}
-                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td><img src="{{ partido.idClub_Category_away.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
                             <td class="text-center">
                                 {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
                                 <strong>{{partido.awayGoals}} - {{partido.homeGoals}}</strong>
@@ -115,7 +115,7 @@
                                 <strong>{{partido.awayGoals}}({{partido.awayPenaltis}}) - {{partido.homeGoals}}({{partido.homePenaltis}})</strong>
                                 {%endif%}
                             </td>
-                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td><img src="{{ partido.idClub_Category_home.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
                             {%endif%}
                             <td>{{partido.idFootbalField}}</td>
                         </tr>
@@ -123,7 +123,7 @@
                         <tr>
                             <td>{{partido.starDate|date:"d/m/Y - G:i"}}</td>
                             {%if club.id == partido.idClub_Category_home.id%}
-                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td><img src="{{ partido.idClub_Category_home.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
                             <td class="text-center">
                                 {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
                                 <strong>{{partido.homeGoals}} - {{partido.awayGoals}}</strong>
@@ -131,9 +131,9 @@
                                 <strong>{{partido.homeGoals}}({{partido.homePenaltis}}) - {{partido.awayGoals}}({{partido.awayPenaltis}})</strong>
                                 {%endif%}
                             </td>
-                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td><img src="{{ partido.idClub_Category_away.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
                             {%else%}
-                            <td><img src="{{ partido.idClub_Category_away.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
+                            <td><img src="{{ partido.idClub_Category_away.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_away}}</td>
                             <td class="text-center">
                                 {%if partido.homePenaltis == null and partido.awayPenaltis == null%}
                                 <strong>{{partido.awayGoals}} - {{partido.homeGoals}}</strong>
@@ -141,7 +141,7 @@
                                 <strong>{{partido.awayGoals}}({{partido.awayPenaltis}}) - {{partido.homeGoals}}({{partido.homePenaltis}})</strong>
                                 {%endif%}
                             </td>
-                            <td><img src="{{ partido.idClub_Category_home.shield.url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
+                            <td><img src="{{ partido.idClub_Category_home.image_url }}" width="25px" class="mr-1">{{partido.idClub_Category_home}}</td>
                             {%endif%}
                             <td>{{partido.idFootbalField}}</td>
                         </tr>
