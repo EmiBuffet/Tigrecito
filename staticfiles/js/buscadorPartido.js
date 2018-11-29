@@ -55,6 +55,8 @@ var vm2 = new Vue({
 		},
 		onShowMatches: function() {
 			let clubName = this.selectedClub.name.replace(/\s+/g, '-').toLowerCase()
+            console.log('club id: ' + this.matchInfo.clubId)
+            console.log('category id: ' + this.matchInfo.categoryId)
 			if(this.matchInfo.clubId !== null && this.matchInfo.categoryId !== null){
                 console.log('redirecting...')
 				window.location = `${HOST}/partido/equipo/${clubName}/${this.matchInfo.clubId}/${this.matchInfo.categoryId}`;
