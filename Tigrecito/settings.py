@@ -155,7 +155,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'tigrecitosunchales@gmail.com'
-EMAIL_HOST_PASSWORD = 'contra31'
+EMAIL_HOST_PASSWORD = bool(os.environ.get('EMAIL_PASSWORD', 'fk_you'))
 
 """GDAL_LIBRARY_PATH = "/app/.heroku/vendor/lib/libgdal.so"
 GEOS_LIBRARY_PATH = "/app/.heroku/vendor/lib/libgeos_c.so"
