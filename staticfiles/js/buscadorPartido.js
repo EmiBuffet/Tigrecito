@@ -52,6 +52,8 @@ var vm2 = new Vue({
 		},
 		onSelectCategoryId: function(categoryId) {
 			this.matchInfo.categoryId = categoryId
+            console.log('category id function.' : + categoryId )
+            console.log('categoryId object: ' + this.matchInfo.categoryId)
 		},
 		onShowMatches: function() {
 			let clubName = this.selectedClub.name.replace(/\s+/g, '-').toLowerCase()
