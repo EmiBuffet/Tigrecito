@@ -35,7 +35,7 @@
                 <div class="col-md-2 form-group">
                     <select class="custom-select" v-model="matchInfo.categoryId">
                         <option selected>Categoría</option>
-                        <option v-for="category in selectedClub.category">[%category.description%]</option>
+                        <option v-for="category in selectedClub.category" v-bind:value="category.id">[%category.description%]</option>
                     </select>
                 </div>
 
