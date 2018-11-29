@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="col-md-2 form-group">
-                    <select class="custom-select" :disabled="!hasSelectedClub">
+                    <select class="custom-select">
                         <option selected>Categoría</option>
                         <option v-for="category in selectedClub.category" :value="category.id" @click="onSelectCategoryId(category.id)">[%category.description%]</option>
                     </select>
