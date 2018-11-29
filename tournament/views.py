@@ -169,3 +169,6 @@ def CategoriasClub(request):
     queryset = Club.objects.all()
     clubes = serializers.CategoriasClubSerializer(queryset, many=True)
     return JsonResponse({'clubes': clubes.data})
+
+def mostrarEquipoEscudos(request):
+    return render(request, 'escudos-equipos')
