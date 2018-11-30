@@ -10,8 +10,7 @@ var vmEscudos = new Vue({
         selectedFile: null,
         upload: {
             isUploading: false,
-            percentage: 0,
-            isUploadingToDjango: false
+            state: ''
         }
     },
     methods: {
@@ -34,11 +33,7 @@ var vmEscudos = new Vue({
         },
         onUploadImageToFirebase: function(equipo, event) {
             if(this.selectedFile){
-                this.upload.percentage = 0
-                this.isUploadingToDjango = false
                 this.manageUpload(equipo)
-                //upload image to firebase
-
             }
         },
         onChangeInputFile: function(event) {
@@ -51,18 +46,27 @@ var vmEscudos = new Vue({
         manageUpload: function(equipo) {
             let storageRef = firebase.storage().ref(`shield/${equipo.id}/${this.selectedFile.name}`)
             this.upload.isUploading = true
-            var uploadTask = storageRef.put(this.selectedFile).on('state_changed', function(snappy) {
-                this.upload.percentage = (snappy.bytesTransferred / snappy.totalBytes) * 100
-            },
-            function(err) {
-                this.upload.isUploading = false
-                this.error = err
-            },
-            function() {
-                // when upload finished then send data to django server.
-                this.upload.isUploading = false
-                this.resetAllProps()
-                console.log('Well done')
+            this.upload.state = 'Subiendo a Firebase...'
+            var uploadTask = storageRef.put(this.selectedFile).then(snap => {
+                this.upload.state = 'Obteniendo URL...'
+                return snap.ref.getDownloadURL()
+            }).then(imageURL => {
+                //Enviar a django server
+                this.state = 'Subiendo a la base de datos...'
+                axios.post(`${HOST}/escudo`, {
+                    idClub: equipo.id,
+                    shield: imageURL
+                })
+                .then(response => {
+                    console.log(response.respuesta)
+                    this.upload.isUploading = false
+                    this.upload.state = ''
+                })
+                .catch(err => {
+                    this.error = err
+                    this.upload.isUploading = false
+                    this.upload.state = ''
+                })
             })
         }
     }
