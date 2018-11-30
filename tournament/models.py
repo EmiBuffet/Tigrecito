@@ -74,8 +74,8 @@ class Matches(models.Model):
     awayPenaltis = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return u"%s %s %s %s" % (
-            self.idClub_Category_home, "Vs", self.idClub_Category_away, self.idCategory)
+        return u"%s %s %s %s %s %s" % (self.starDate, self.idFootbalField,
+                                       self.idClub_Category_home, "Vs", self.idClub_Category_away, self.idCategory)
 
 
 class TypeOfMatch(models.Model):
