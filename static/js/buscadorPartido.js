@@ -1,5 +1,4 @@
 "use strict";
-
 var vm2 = new Vue({
 	el: '#buscadorPartido',
 	delimiters: ["[%", "%]"],
