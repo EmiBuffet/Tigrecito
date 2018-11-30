@@ -172,6 +172,6 @@ def CategoriasClub(request):
 
 def mostrarEquipoEscudos(request):
     if request.user.is_staff:
-        return render(request, 'escudos-equipos.html')
+        return render(request, 'escudos-equipos.html', {'meta_title': 'Cambiar escudo'})
     else:
         return HttpResponseRedirect("/")
