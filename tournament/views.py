@@ -169,3 +169,14 @@ def CategoriasClub(request):
     queryset = Club.objects.all()
     clubes = serializers.CategoriasClubSerializer(queryset, many=True)
     return JsonResponse({'clubes': clubes.data})
+
+
+def CambiarImagen(request, imagen, id):
+    respuesta = 'fallo'
+    if request.method == 'POST':
+        if request.user.is_staff:
+            club = Club.objects.get(id=id)
+            club.shield = imagen
+            club.save()
+            respuesta = 'Todo ok'
+    return JsonResponse({'respuesta': respuesta})
