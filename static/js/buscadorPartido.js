@@ -12,7 +12,7 @@ var vm2 = new Vue({
 		isSearching: false,
 		matchInfo: {
 			clubId: null,
-			categoryId: null
+			categoryId: 'default'
 		}
 	},
 	methods: {
@@ -46,16 +46,13 @@ var vm2 = new Vue({
 		},
 		onRemoveSelectedClub: function() {
 			this.matchInfo.clubId = null
-			this.matchInfo.categoryId = null
+			this.matchInfo.categoryId = 'default'
 			this.hasSelectedClub = false
 			this.selectedClub = {}
 		},
-		onSelectCategoryId: function(categoryId) {
-			this.matchInfo.categoryId = categoryId
-		},
 		onShowMatches: function() {
 			let clubName = this.selectedClub.name.replace(/\s+/g, '-').toLowerCase()
-			if(this.matchInfo.clubId !== null && this.matchInfo.categoryId !== null){
+			if(this.matchInfo.clubId !== null && this.matchInfo.categoryId !== null && this.matchInfo.categoryId !== 'default'){
 				window.location = `${HOST}/partido/equipo/${clubName}/${this.matchInfo.clubId}/${this.matchInfo.categoryId}`;
 			}
 		}

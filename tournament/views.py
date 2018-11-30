@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.response import Response
@@ -169,3 +169,9 @@ def CategoriasClub(request):
     queryset = Club.objects.all()
     clubes = serializers.CategoriasClubSerializer(queryset, many=True)
     return JsonResponse({'clubes': clubes.data})
+
+def mostrarEquipoEscudos(request):
+    if request.user.is_staff:
+        return render(request, 'escudos-equipos.html', {'meta_title': 'Cambiar escudo'})
+    else:
+        return HttpResponseRedirect("/")
