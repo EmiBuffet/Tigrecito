@@ -171,14 +171,20 @@ def CategoriasClub(request):
     return JsonResponse({'clubes': clubes.data})
 
 
-def CambiarImagen(request, imagen, id):
+def CambiarImagen(request):
     respuesta = 'fallo'
     if request.method == 'POST':
+        jsonlucas = request.body
+        objeto = json.loads(jsonlucas)
+        escudo = objeto['shield']
+        idClub = objeto['idClub']
+
         if request.user.is_staff:
-            club = Club.objects.get(id=id)
-            club.shield = imagen
+            club = Club.objects.get(id=idClub)
+            club.shield = escudo
             club.save()
             respuesta = 'Todo ok'
+
     return JsonResponse({'respuesta': respuesta})
 
 
