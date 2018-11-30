@@ -33,33 +33,37 @@ var vmEscudos = new Vue({
             this.error = null
         },
         onUploadImageToFirebase: function(equipo, event) {
-            this.upload.percentage = 0
-            this.isUploadingToDjango = false
+            if(this.selectedFile){
+                this.upload.percentage = 0
+                this.isUploadingToDjango = false
+                this.manageUpload(equipo)
+                //upload image to firebase
 
-            //upload image to firebase
-            let storageRef = firebase.storage().ref(`shield/${equipo.id}/${this.selectedFile.name}`)
-            console.log(storageRef.fullPath)
-            var uploadTask = storageRef.put(this.selectedFile)
-            this.upload.isUploading = true
-            //update progress
-            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-                function(snapshot) {
-                    this.upload.percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                    console.log('va: ' + this.upload.percentage + '%')
-                },
-                function(err) {
-                    this.error = err
-                    this.upload.isUploading = false
-                },
-                function() {
-                    this.upload.isUploading = false
-                }
-            )
-            //upload to django server
+            }
         },
         onChangeInputFile: function(event) {
             this.selectedFile = event.target.files[0]
-            console.log(this.selectedFile)
+        },
+        resetAllProps: function () {
+            this.error = false
+            this.selectedFile = null
+        },
+        manageUpload: function(equipo) {
+            let storageRef = firebase.storage().ref(`shield/${equipo.id}/${this.selectedFile.name}`)
+            this.upload.isUploading = true
+            var uploadTask = storageRef.put(this.selectedFile).on('state_changed', function(snappy) {
+                this.upload.percentage = (snappy.bytesTransferred / snappy.totalBytes) * 100
+            },
+            function(err) {
+                this.upload.isUploading = false
+                this.error = err
+            },
+            function() {
+                // when upload finished then send data to django server.
+                this.upload.isUploading = false
+                this.resetAllProps()
+                console.log('Well done')
+            })
         }
     }
 })

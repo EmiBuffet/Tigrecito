@@ -38,14 +38,14 @@
                         <td>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03" @click="onUploadImageToFirebase(equipo, $event)">Subir</button>
+                                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03" @click="onUploadImageToFirebase(equipo, $event)" :disabled="upload.isUploading">Subir</button>
                                 </div>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="inputGroupFile03" @change="onChangeInputFile($event)">
-                                    <label class="custom-file-label" for="inputGroupFile03">Buscar archivo</label>
+                                    <label class="custom-file-label" for="inputGroupFile03" :disabled="upload.isUploading">Buscar archivo</label>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash-alt mr-1"></i>Eliminar</button>
+                            <button type="button" class="btn btn-outline-danger" :disabled="upload.isUploading"><i class="fas fa-trash-alt mr-1"></i>Eliminar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -65,24 +65,10 @@
                 <div class="sk-circle12 sk-child"></div>
             </div>
             <div class="progress position-fixed fixed-bottom" v-if="upload.isUploading">
-                <div class="progress-bar" role="progressbar" :style="{width: upload.percentage + 'px'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">[%upload.percentage%] %</div>
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" :style="{width: upload.percentage + '%'}">[%upload.percentage%]</div>
             </div>
         </div>
     </div>
 </main>
-
-<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
-<script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyBxANWO-5JE2YiBIZuPPLCSIWvLmx10kss",
-        authDomain: "tigrecito-sunchales.firebaseapp.com",
-        databaseURL: "https://tigrecito-sunchales.firebaseio.com",
-        projectId: "tigrecito-sunchales",
-        storageBucket: "tigrecito-sunchales.appspot.com",
-        messagingSenderId: "635481351758"
-    };
-    firebase.initializeApp(config);
-</script>
 <script type="text/javascript" src="{% static 'js/cambiarEscudo.js' %}"></script>
 {% endblock %}
