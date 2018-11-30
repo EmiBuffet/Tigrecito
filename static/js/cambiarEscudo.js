@@ -52,7 +52,7 @@ var vmEscudos = new Vue({
                 return snap.ref.getDownloadURL()
             }).then(imageURL => {
                 //Enviar a django server
-                this.state = 'Subiendo a la base de datos...'
+                this.upload.state = 'Subiendo a la base de datos...'
                 axios.post(`${HOST}/escudo`, {
                     idClub: equipo.id,
                     shield: imageURL
