@@ -92,6 +92,14 @@
                     <li class="nav-item menu-item mr-lg-1 mt-1 mt-lg-0 text-center">
                         <a class="nav-link menu-link" href="{% url 'contacto' %}">Contactanos</a>
                     </li>
+                    {% if user.is_staff %}
+                    <li class="nav-item dropdown menu-item mr-lg-1 mt-1 mt-lg-0 text-center">
+                        <a class="nav-link menu-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'cambiar-escudo' %}">Escudo</a>
+                        </div>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
