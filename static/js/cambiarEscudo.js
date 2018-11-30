@@ -11,6 +11,11 @@ var vmEscudos = new Vue({
         upload: {
             isUploading: false,
             state: ''
+        },
+        config: {
+            headers: {'X-CSRFToken': Cookies.get('csrftoken'),
+                    'Content-Type': 'text/json'},
+            withCredentials: true
         }
     },
     methods: {
@@ -53,10 +58,10 @@ var vmEscudos = new Vue({
             }).then(imageURL => {
                 //Enviar a django server
                 this.upload.state = 'Subiendo a la base de datos...'
-                axios.post(`${HOST}/escudo`, {
+                axios.post(`${HOST}/escudo/`, {
                     idClub: equipo.id,
                     shield: imageURL
-                })
+                }, this.config)
                 .then(response => {
                     console.log(response.respuesta)
                     this.upload.isUploading = false

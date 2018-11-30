@@ -30,10 +30,7 @@
                     <tr v-for="equipo in clubs">
                         <td>[%equipo.name%] ([%equipo.city%])</td>
                         <td>
-                            <template v-if="equipo.shield !== null">
-                                <img :src="equipo.shield" width="25px">
-                            </template>
-                            <template v-else>no</template>
+                            <img :src="equipo.image_url" width="25px">
                         </td>
                         <td>
                             <div class="input-group mb-3">
@@ -45,7 +42,6 @@
                                     <label class="custom-file-label" for="inputGroupFile03" :disabled="upload.isUploading">Buscar archivo</label>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-outline-danger" :disabled="upload.isUploading"><i class="fas fa-trash-alt mr-1"></i>Eliminar</button>
                         </td>
                     </tr>
                 </tbody>
