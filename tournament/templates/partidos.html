@@ -21,7 +21,7 @@
                     <small id="emailHelp" class="form-text text-muted" v-show="!hasSelectedClub && resultSearch.length === 0 && isSearching">No encontramos ningún equipo con ese nombre.</small>
                     <div class="list-group search-result" v-if="resultSearch.length > 0 && !hasSelectedClub">
                         <a class="list-group-item list-group-item-action" v-for="(club,i) in resultSearch" @click="selectClub(i)">
-                            <img :src="club.shield" width="25px">
+                            <img :src="club.image_url" width="25px">
                             [%club.name%]
                         </a>
                     </div>

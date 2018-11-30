@@ -19,7 +19,7 @@ class CategoriasClubSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'city',
-            'shield',
+            'image_url',
             'category',
         )
         model = Club
@@ -32,7 +32,7 @@ class ClubSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'city',
-            'shield',
+            'image_url',
         )
         model = Club
 
