@@ -1,1 +1,74 @@
-<h1>Admin site</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="heading-container p-4">
+    <div class="container">
+        <h1 class="heading-text text-center">Cambiar escudo</h1>
+    </div>
+</div>
+
+<main class="white-container py-5">
+    <div class="container">
+        <h2>Listado de clubes</h2>
+        <div id="appChangeShield">
+            <div class="alert alert-warning alert-dismissible fade" role="alert" :class="{'show': error}" v-if="error">
+                <strong>Holy molly!</strong> [%error%]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="onCloseAlertError">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <table class="table table-bordered table-hover" v-if="isSearching === false">
+                <thead>
+                    <tr>
+                        <th scope="col">Equipo</th>
+                        <th scope="col">Escudo</th>
+                        <th scope="col">Acciones (escudo)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="equipo in clubs">
+                        <td>[%equipo.name%] ([%equipo.city%])</td>
+                        <td>
+                            <template v-if="equipo.shield !== null">
+                                <img :src="equipo.shield" width="25px">
+                            </template>
+                            <template v-else>no</template>
+                        </td>
+                        <td>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03" @click="onUploadImageToFirebase(equipo, $event)" :disabled="upload.isUploading">Subir</button>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile03" @change="onChangeInputFile($event)">
+                                    <label class="custom-file-label" for="inputGroupFile03" :disabled="upload.isUploading">Buscar archivo</label>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-danger" :disabled="upload.isUploading"><i class="fas fa-trash-alt mr-1"></i>Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="sk-circle" v-else>
+                <div class="sk-circle1 sk-child"></div>
+                <div class="sk-circle2 sk-child"></div>
+                <div class="sk-circle3 sk-child"></div>
+                <div class="sk-circle4 sk-child"></div>
+                <div class="sk-circle5 sk-child"></div>
+                <div class="sk-circle6 sk-child"></div>
+                <div class="sk-circle7 sk-child"></div>
+                <div class="sk-circle8 sk-child"></div>
+                <div class="sk-circle9 sk-child"></div>
+                <div class="sk-circle10 sk-child"></div>
+                <div class="sk-circle11 sk-child"></div>
+                <div class="sk-circle12 sk-child"></div>
+            </div>
+            <div class="progress position-fixed fixed-bottom" v-if="upload.isUploading">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" :style="{width: upload.percentage + '%'}">[%upload.percentage%]</div>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript" src="{% static 'js/cambiarEscudo.js' %}"></script>
+{% endblock %}
