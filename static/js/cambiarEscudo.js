@@ -23,8 +23,16 @@ var vmEscudos = new Vue({
             this.isSearching = true
             axios.get(`${HOST}/api/clubes?format=json`)
 				.then(res => {
-                    //TODO: Ordenar alfabeticamente
 					this.clubs = res.data.clubes
+                    this.clubs.sort(function ccompareFunction(a, b){
+                        if(a.name.toLowerCase() < b.name.toLowerCase()) {
+                            return -1
+                        }
+                        if(a.name.toLowerCase() > b.name.toLowerCase()){
+                            return 1
+                        }
+                        return 0
+                    })
                     this.isSearching = false
 				})
 				.catch(err => {
@@ -64,6 +72,8 @@ var vmEscudos = new Vue({
                 }, this.config)
                 .then(response => {
                     console.log(response.respuesta)
+                    // todo ok. cambiar la imágen del escudo en el html
+                    this.$refs[`shieldImage-${equipo.id}`][0].setAttribute('src', imageURL)
                     this.upload.isUploading = false
                     this.upload.state = ''
                 })

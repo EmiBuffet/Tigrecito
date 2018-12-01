@@ -30,12 +30,12 @@
                     <tr v-for="equipo in clubs">
                         <td>[%equipo.name%] ([%equipo.city%])</td>
                         <td>
-                            <img :src="equipo.image_url" width="25px">
+                            <img :src="equipo.image_url" width="25px" :ref="'shieldImage-' + equipo.id">
                         </td>
                         <td>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03" @click="onUploadImageToFirebase(equipo, $event)" :disabled="upload.isUploading">Subir</button>
+                                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03" @click="onUploadImageToFirebase(equipo,$event)" :disabled="upload.isUploading">Subir</button>
                                 </div>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="inputGroupFile03" @change="onChangeInputFile($event)">
