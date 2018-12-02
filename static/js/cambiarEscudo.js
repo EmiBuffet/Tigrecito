@@ -71,7 +71,6 @@ var vmEscudos = new Vue({
                     shield: imageURL
                 }, this.config)
                 .then(response => {
-                    console.log(response.respuesta)
                     // todo ok. cambiar la imágen del escudo en el html
                     this.$refs[`shieldImage-${equipo.id}`][0].setAttribute('src', imageURL)
                     this.upload.isUploading = false
