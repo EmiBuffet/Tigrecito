@@ -175,7 +175,6 @@ def CambiarImagen(request):
     respuesta = 'fallo'
     body = request.body.decode('utf-8')
     if request.method == 'POST':
-        print(body)
         objeto = json.loads(body)
         escudo = objeto['shield']
         idClub = objeto['idClub']
@@ -192,5 +191,12 @@ def CambiarImagen(request):
 def mostrarEquipoEscudos(request):
     if request.user.is_staff:
         return render(request, 'escudos-equipos.html', {'meta_title': 'Cambiar escudo'})
+    else:
+        return HttpResponseRedirect("/")
+
+# Cambiar resultado de equipos
+def cambiarResultadoPartidos(request):
+    if request.user.is_staff:
+        return render(request, 'cambiar-resultados.html', {'meta_title': 'Cambiar resultado partidos'})
     else:
         return HttpResponseRedirect("/")
