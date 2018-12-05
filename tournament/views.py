@@ -49,7 +49,6 @@ def contacto(request):
             else:
                 return JsonResponse({'wasSended': 'false',
                                      'errorMessage': 'No pudimos enviar el correo, por favor intentelo nuevamente.'})
-
         else:
             return JsonResponse({'wasSended': 'false', 'errorMessage': 'Completar campos obligatorios'})
     else:
@@ -218,22 +217,41 @@ def cambiarResultadoPartidos(request):
         return HttpResponseRedirect("/")
 
 
+# post para cambiar el resultado de un partido
 @ensure_csrf_cookie
 def CambiarResultado(request):
-    respuesta = 'fallo'
+    respuesta = ''
     body = request.body.decode('utf-8')
     if request.method == 'POST':
-        objeto = json.loads(body)
-        idPartido = objeto['idPartido']
-        golesLocal = objeto['GolesLocal']
-        golesVisitante = objeto['GolesVisitante']
-        penalesLocal = objeto['PenalesLocal']
-        penalesVisitante = objeto['PenalesVisitante']
         if request.user.is_staff:
+            objeto = json.loads(body)
+            # datos del partido
+            idPartido = objeto['idPartido']
+            golesLocal = objeto['GolesLocal']
+            golesVisitante = objeto['GolesVisitante']
+            penalesLocal = objeto['PenalesLocal']
+            penalesVisitante = objeto['PenalesVisitante']
+            # objeto partido de la db
             partido = Matches.objects.get(id=idPartido)
-            if golesLocal and golesVisitante:
+
+            if golesLocal is not None and golesVisitante is not None:
                 partido.homeGoals = golesLocal
                 partido.awayGoals = golesVisitante
-            respuesta = 'Todo ok'
+            elif golesLocal is None and golesVisitante is None:
+                partido.homeGoals = None
+                partido.awayGoals = None
+            else:
+                respuesta = 'Error: Falto cargar goles de un equipo'
+            if penalesLocal is not None and penalesVisitante is not None:
+                partido.homePenaltis = penalesLocal
+                partido.awayPenaltis = penalesVisitante
+            elif penalesLocal is None and penalesVisitante is None:
+                partido.homePenaltis = None
+                partido.awayPenaltis = None
+            else:
+                respuesta = 'Error: Falto cargar penales de un equipo'
+            if respuesta == '':
+                partido.save()
+                respuesta = 'Se guardo correctamente'
 
     return JsonResponse({'respuesta': respuesta})

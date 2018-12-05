@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/cambiar-escudos', views.mostrarEquipoEscudos, name="cambiar-escudo"),
     path('admin/cambiar-resultado-partidos', views.cambiarResultadoPartidos, name="cambiar-resultado-partidos"),
     path('escudo/', views.CambiarImagen, name="escudo"),
+    path('cambiar-resultado/', views.CambiarResultado, name="cambiar-resultado"),
     path('', views.home, name="home"),
     path('torneo/', views.torneo, name="torneo"),
     path('contacto/', views.contacto, name="contacto"),
