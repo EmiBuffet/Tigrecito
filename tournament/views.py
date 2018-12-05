@@ -170,6 +170,14 @@ def CategoriasClub(request):
     clubes = serializers.CategoriasClubSerializer(queryset, many=True)
     return JsonResponse({'clubes': clubes.data})
 
+
+# accest to api/clubes
+def Categorias(request):
+    queryset = Category.objects.all()
+    categorias = serializers.CategoriaSerializer(queryset, many=True)
+    return JsonResponse({'categorias': categorias.data})
+
+
 @ensure_csrf_cookie
 def CambiarImagen(request):
     respuesta = 'fallo'
