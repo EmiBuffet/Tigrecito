@@ -6,7 +6,21 @@
         <h1 class="heading-text text-center">Cambiar resultados de partidos</h1>
     </div>
 </div>
+<div id="cambiarPartidos">
+    <main class="white-container py-4">
+        <div class="container">
+            <select class="custom-select" v-model="selectedCategory">
+                <option value="default">Selecciona una categeoría</option>
+                <option value="1">2006</option>
+                <option value="2">2007</option>
+                <option value="3">2008</option>
+            </select>
+        </div>
 
+        <div class="container">
 
+        </div>
+    </main>
+</div>
 <script type="text/javascript" src="{% static 'js/cambiarResultadoPartidos.js' %}"></script>
 {% endblock %}
