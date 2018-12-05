@@ -58,8 +58,10 @@
     <!-- Global variables for JS. -->
     <script src="{% static 'js/globalConfig.js' %}"></script>
 
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- production version, optimized for size and speed -->
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
 
     <!-- AXios-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -109,6 +111,7 @@
                         <a class="nav-link menu-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{% url 'cambiar-escudo' %}">Escudo</a>
+                            <a class="dropdown-item" href="{% url 'cambiar-resultado-partidos' %}">Partidos</a>
                         </div>
                     </li>
                     {% endif %}
