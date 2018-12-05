@@ -8,7 +8,7 @@
 </div>
 <div id="cambiarPartidos">
     <main class="white-container py-4">
-        <div class="container">
+        <div class="container" v-if="!isFetchingCategories">
             <select class="custom-select" v-model="selectedCategory">
                 <option value="default">Selecciona una categeoría</option>
                 <option value="1">2006</option>
@@ -16,10 +16,40 @@
                 <option value="3">2008</option>
             </select>
         </div>
+        <div class="sk-circle" v-else>
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+        </div>
 
         <div class="container">
-            <tg-partido></tg-partido>
-            <tg-partido></tg-partido>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Equipo Home</th>
+                            <th scope="col">Goles</th>
+                            <th scope="col">Penales</th>
+                            <th>-</th>
+                            <th scope="col">Equipo away</th>
+                            <th scope="col">Goles</th>
+                            <th scope="col">Penales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr is="tg-partido"></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </div>

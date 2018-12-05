@@ -3,11 +3,21 @@
 Vue.component('tg-partido', {
     data: function() {
         return {
-            myName: 'Lucas'
+            isSendingInfo: false
         }
     },
-    template: '<h1>{{myName}}</h1>',
-    props: ['partido']
+    template: `
+    <tr>
+        <td>Unión Sunchales</td>
+        <td>5</td>
+        <td>7</td>
+        <td>-</td>
+        <td>Libertad Sunchales</td>
+        <td>5</td>
+        <td>7</td>
+    </tr>
+    `,
+    props: ['partido'],
     methods: {
 
     }
@@ -17,9 +27,12 @@ var vmCambiarResultadoPartidos = new Vue({
     el: '#cambiarPartidos',
     delimiters: ["[%", "%]"],
     data: {
-        selectedCategory: 'default' // watch this prop so you can fetch the API.
+        selectedCategory: 'default', // watch this prop so you can fetch the API.
+        isFetchingCategories: true
     },
     methods: {
-
+        getAllCategories: function() {
+            
+        }
     }
 })
