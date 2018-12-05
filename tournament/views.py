@@ -19,7 +19,6 @@ def home(request):
 
 
 def torneo(request):
-    # Usar el método .values() para obtener todo el objeto (con ID).
     categorias = Category.objects.all().values()
     categoriesInfo = []
     for categoryObj in categorias:
@@ -75,7 +74,6 @@ def show_pdf_buenafe(request):
 
 def clubes(request):
     clubs = Club.objects.all()
-    # TODO: Obtener categoryId de cada CLUB.
     context = {'clubs': clubs, 'meta_title': 'Clubes'}
     return render(request, 'clubes.html', context)
 
