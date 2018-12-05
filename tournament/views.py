@@ -234,7 +234,10 @@ def CambiarResultado(request):
             # objeto partido de la db
             partido = Matches.objects.get(id=idPartido)
 
-            if golesLocal is not None and golesVisitante is not None:
+            if golesLocal is '' and golesVisitante is '':
+                partido.homeGoals = None
+                partido.awayGoals = None
+            elif golesLocal is not None and golesVisitante is not None:
                 partido.homeGoals = golesLocal
                 partido.awayGoals = golesVisitante
             elif golesLocal is None and golesVisitante is None:
@@ -242,7 +245,10 @@ def CambiarResultado(request):
                 partido.awayGoals = None
             else:
                 respuesta = 'Error: Falto cargar goles de un equipo'
-            if penalesLocal is not None and penalesVisitante is not None:
+            if penalesLocal is '' and penalesVisitante is '':
+                partido.homePenaltis = None
+                partido.awayPenaltis = None
+            elif penalesLocal is not None and penalesVisitante is not None:
                 partido.homePenaltis = penalesLocal
                 partido.awayPenaltis = penalesVisitante
             elif penalesLocal is None and penalesVisitante is None:
@@ -253,5 +259,8 @@ def CambiarResultado(request):
             if respuesta == '':
                 partido.save()
                 respuesta = 'Se guardo correctamente'
-
-    return JsonResponse({'respuesta': respuesta})
+            return JsonResponse({'respuesta': respuesta})
+        else:
+            return HttpResponseRedirect("/")
+    else:
+        return HttpResponseRedirect("/")

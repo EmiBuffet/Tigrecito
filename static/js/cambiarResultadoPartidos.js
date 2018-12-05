@@ -3,18 +3,23 @@
 Vue.component('tg-partido', {
     data: function() {
         return {
-            isSendingInfo: false
+            isSendingInfo: false,
+            config: {
+                headers: {'X-CSRFToken': Cookies.get('csrftoken'),
+                        'Content-Type': 'text/json'},
+                withCredentials: true
+            }
         }
     },
     template: `
     <tr>
-        <td>15/10 15:00</td>
+        <td>{{partido.starDate}}</td>
         <td><img :src="partido.idClub_Category_home.image_url" width="25px">
         {{partido.idClub_Category_home.name}}</td>
         <td>
         <input type="number" v-model="partido.homeGoals" style="width: 80px;" :disabled="isSendingInfo">
         </td>
-        <td><input type="number" v-model="partido.Penaltis" style="width: 80px;" :disabled="isSendingInfo"></td>
+        <td><input type="number" v-model="partido.homePenaltis" style="width: 80px;" :disabled="isSendingInfo"></td>
         <td>-</td>
         <td><img :src="partido.idClub_Category_away.image_url" width="25px">
         {{partido.idClub_Category_away.name}}</td>
@@ -30,6 +35,20 @@ Vue.component('tg-partido', {
         onSaveMatch: function(event) {
             this.isSendingInfo = true
             event.target.textContent = 'Enviando...'
+            console.log(this.partido.homePenaltis)
+            axios.post(`${HOST}/cambiar-resultado/`,{
+                idPartido: this.partido.id,
+                GolesLocal: this.partido.homeGoals,
+                GolesVisitante: this.partido.awayGoals,
+                PenalesLocal: this.partido.homePenaltis,
+                PenalesVisitante: this.partido.awayPenaltis
+            },this.config).then(response => {
+                console.log(response)
+                this.isSendingInfo = false
+                event.target.textContent = 'Guardar'
+            }).catch(err => {
+                console.error(err)
+            })
         }
     }
 })
