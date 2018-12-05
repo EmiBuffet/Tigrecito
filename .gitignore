@@ -12,6 +12,9 @@ __pycache__/
 #Database
 *.sqlite3
 
+#Jetbrains
+.idea/
+
 ### Django ###
 *.log
 *.pot
