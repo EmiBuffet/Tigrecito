@@ -170,12 +170,13 @@ def CategoriasClub(request):
     clubes = serializers.CategoriasClubSerializer(queryset, many=True)
     return JsonResponse({'clubes': clubes.data})
 
-
+@ensure_csrf_cookie
 def CambiarImagen(request):
     respuesta = 'fallo'
+    body = request.body.decode('utf-8')
     if request.method == 'POST':
-        jsonlucas = request.body
-        objeto = json.loads(jsonlucas)
+        print(body)
+        objeto = json.loads(body)
         escudo = objeto['shield']
         idClub = objeto['idClub']
 

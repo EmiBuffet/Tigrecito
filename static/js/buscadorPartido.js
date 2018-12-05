@@ -1,5 +1,4 @@
 "use strict";
-
 var vm2 = new Vue({
 	el: '#buscadorPartido',
 	delimiters: ["[%", "%]"],
@@ -13,7 +12,8 @@ var vm2 = new Vue({
 		matchInfo: {
 			clubId: null,
 			categoryId: 'default'
-		}
+		},
+        isFetchingClubs: false
 	},
 	methods: {
 		searchByClubName: function(e) {
@@ -29,12 +29,15 @@ var vm2 = new Vue({
 			}
 		},
 		getAllClubs: function() {
+            this.isFetchingClubs = true
 			axios.get(`${HOST}/api/clubes?format=json`)
 				.then(res => {
 					this.clubs = res.data.clubes
+                    this.isFetchingClubs = false
 				})
 				.catch(err => {
 					console.eror(err)
+                    this.isFetchingClubs = false
 				})
 		},
 		selectClub: function(index) {

@@ -38,40 +38,40 @@ def estadisticas_equipo(partidos, club):
     partidos_empatados = 0
     goles_a_favor = 0
     goles_en_contra = 0
-    for partidos in partidos:
-        if club == partidos.idClub_Category_home:
-            if partidos.homeGoals is not None:
+    for partido in partidos:
+        if club == partido.idClub_Category_home:
+            if partido.homeGoals is not None:
                 partidos_jugados += 1
-                if partidos.homeGoals > partidos.awayGoals:
+                if partido.homeGoals > partido.awayGoals:
                     puntos += 3
                     partidos_ganados += 1
-                    goles_a_favor += partidos.homeGoals
-                    goles_en_contra += partidos.awayGoals
-                elif partidos.homeGoals == partidos.awayGoals:
+                    goles_a_favor += partido.homeGoals
+                    goles_en_contra += partido.awayGoals
+                elif partido.homeGoals == partido.awayGoals:
                     puntos += 1
                     partidos_empatados += 1
-                    goles_a_favor += partidos.homeGoals
-                    goles_en_contra += partidos.awayGoals
+                    goles_a_favor += partido.homeGoals
+                    goles_en_contra += partido.awayGoals
                 else:
-                    goles_a_favor += partidos.homeGoals
-                    goles_en_contra += partidos.awayGoals
+                    goles_a_favor += partido.homeGoals
+                    goles_en_contra += partido.awayGoals
                     partidos_perdidos += 1
-        elif club == partidos.idClub_Category_away:
-            if partidos.awayGoals is not None:
+        elif club == partido.idClub_Category_away:
+            if partido.awayGoals is not None:
                 partidos_jugados += 1
-                if partidos.awayGoals > partidos.homeGoals:
+                if partido.awayGoals > partido.homeGoals:
                     puntos += 3
                     partidos_ganados += 1
-                    goles_a_favor += partidos.awayGoals
-                    goles_en_contra += partidos.homeGoals
-                elif partidos.awayGoals == partidos.homeGoals:
+                    goles_a_favor += partido.awayGoals
+                    goles_en_contra += partido.homeGoals
+                elif partido.awayGoals == partido.homeGoals:
                     puntos += 1
                     partidos_empatados += 1
-                    goles_a_favor += partidos.awayGoals
-                    goles_en_contra += partidos.homeGoals
+                    goles_a_favor += partido.awayGoals
+                    goles_en_contra += partido.homeGoals
                 else:
-                    goles_a_favor += partidos.awayGoals
-                    goles_en_contra += partidos.homeGoals
+                    goles_a_favor += partido.awayGoals
+                    goles_en_contra += partido.homeGoals
                     partidos_perdidos += 1
 
     dif_goles = goles_a_favor - goles_en_contra

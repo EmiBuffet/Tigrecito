@@ -30,22 +30,18 @@
                     <tr v-for="equipo in clubs">
                         <td>[%equipo.name%] ([%equipo.city%])</td>
                         <td>
-                            <template v-if="equipo.shield !== null">
-                                <img :src="equipo.shield" width="25px">
-                            </template>
-                            <template v-else>no</template>
+                            <img :src="equipo.image_url" width="25px" :ref="'shieldImage-' + equipo.id">
                         </td>
                         <td>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03" @click="onUploadImageToFirebase(equipo, $event)" :disabled="upload.isUploading">Subir</button>
+                                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03" @click="onUploadImageToFirebase(equipo,$event)" :disabled="upload.isUploading">Subir</button>
                                 </div>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="inputGroupFile03" @change="onChangeInputFile($event)">
                                     <label class="custom-file-label" for="inputGroupFile03" :disabled="upload.isUploading">Buscar archivo</label>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-outline-danger" :disabled="upload.isUploading"><i class="fas fa-trash-alt mr-1"></i>Eliminar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -65,7 +61,7 @@
                 <div class="sk-circle12 sk-child"></div>
             </div>
             <div class="progress position-fixed fixed-bottom" v-if="upload.isUploading">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" :style="{width: upload.percentage + '%'}">[%upload.percentage%]</div>
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><strong>[%upload.state%]</strong></div>
             </div>
         </div>
     </div>
