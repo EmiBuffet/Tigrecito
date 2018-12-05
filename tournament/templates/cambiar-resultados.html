@@ -8,12 +8,10 @@
 </div>
 <div id="cambiarPartidos">
     <main class="white-container py-4">
-        <div class="container" v-if="!isFetchingCategories">
-            <select class="custom-select" v-model="selectedCategory">
+        <div class="container pb-4" v-if="!isFetchingCategories">
+            <select class="custom-select" v-model="selectedCategory" :disabled="isFetchingMatches">
                 <option value="default">Selecciona una categeoría</option>
-                <option value="1">2006</option>
-                <option value="2">2007</option>
-                <option value="3">2008</option>
+                <option v-for="category in categories" :value="category.id">[%category.description%]</option>
             </select>
         </div>
         <div class="sk-circle" v-else>
@@ -31,11 +29,12 @@
             <div class="sk-circle12 sk-child"></div>
         </div>
 
-        <div class="container">
+        <div class="container" v-if="!isFetchingMatches && selectedCategory !== 'default'">
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-sm">
                     <thead>
                         <tr>
+                            <th scope="col">Fecha</th>
                             <th scope="col">Equipo Home</th>
                             <th scope="col">Goles</th>
                             <th scope="col">Penales</th>
@@ -43,13 +42,28 @@
                             <th scope="col">Equipo away</th>
                             <th scope="col">Goles</th>
                             <th scope="col">Penales</th>
+                            <th scope="col">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr is="tg-partido"></tr>
+                        <tr is="tg-partido" v-for="match in matches" :partido="match"></tr>
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="sk-circle" v-if="isFetchingMatches">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
         </div>
     </main>
 </div>

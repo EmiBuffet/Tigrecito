@@ -207,7 +207,7 @@ def Categorias(request):
 def PartidosCategoria(request, categoria):
     queryset = Matches.objects.all().filter(idCategory=categoria)
     categorias = serializers.PartidosSerializer(queryset, many=True)
-    return JsonResponse({'categorias': categorias.data})
+    return JsonResponse({'partidosCategoria': categorias.data})
 
 
 # Cambiar resultado de equipos
