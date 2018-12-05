@@ -171,13 +171,6 @@ def CategoriasClub(request):
     return JsonResponse({'clubes': clubes.data})
 
 
-# accest to api/clubes
-def Categorias(request):
-    queryset = Category.objects.all()
-    categorias = serializers.CategoriaSerializer(queryset, many=True)
-    return JsonResponse({'categorias': categorias.data})
-
-
 @ensure_csrf_cookie
 def CambiarImagen(request):
     respuesta = 'fallo'
@@ -202,9 +195,47 @@ def mostrarEquipoEscudos(request):
     else:
         return HttpResponseRedirect("/")
 
+
+# seccion cambiar resultado de partidos
+
+# accest to api/categorias
+def Categorias(request):
+    queryset = Category.objects.all()
+    categorias = serializers.CategoriaSerializer(queryset, many=True)
+    return JsonResponse({'categorias': categorias.data})
+
+
+# accest to api/partidos_categoria/id
+def PartidosCategoria(request, categoria):
+    queryset = Matches.objects.all().filter(idCategory=categoria)
+    categorias = serializers.PartidosSerializer(queryset, many=True)
+    return JsonResponse({'categorias': categorias.data})
+
+
 # Cambiar resultado de equipos
 def cambiarResultadoPartidos(request):
     if request.user.is_staff:
         return render(request, 'cambiar-resultados.html', {'meta_title': 'Cambiar resultado partidos'})
     else:
         return HttpResponseRedirect("/")
+
+
+@ensure_csrf_cookie
+def CambiarResultado(request):
+    respuesta = 'fallo'
+    body = request.body.decode('utf-8')
+    if request.method == 'POST':
+        objeto = json.loads(body)
+        idPartido = objeto['idPartido']
+        golesLocal = objeto['GolesLocal']
+        golesVisitante = objeto['GolesVisitante']
+        penalesLocal = objeto['PenalesLocal']
+        penalesVisitante = objeto['PenalesVisitante']
+        if request.user.is_staff:
+            partido = Matches.objects.get(id=idPartido)
+            if golesLocal and golesVisitante:
+                partido.homeGoals = golesLocal
+                partido.awayGoals = golesVisitante
+            respuesta = 'Todo ok'
+
+    return JsonResponse({'respuesta': respuesta})

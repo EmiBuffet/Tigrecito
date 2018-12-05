@@ -36,6 +36,7 @@ urlpatterns = [
     path('api/partidos', views.ListarTodos, name="todos_partidos"),
     path('api/clubes', views.CategoriasClub, name="api_clubes"),
     path('api/categorias', views.Categorias, name="api_categorias"),
+    path('api/partidos_categoria/<str:categoria>', views.PartidosCategoria, name="api_partidos_categoria"),
     path('partido/equipo/<str:clubName>/<str:clubId>/<str:categoryId>', views.partidosEquipo)
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
