@@ -204,7 +204,7 @@ def Categorias(request):
 
 # accest to api/partidos_categoria/id
 def PartidosCategoria(request, categoria):
-    queryset = Matches.objects.all().filter(idCategory=categoria)
+    queryset = Matches.objects.all().filter(idCategory=categoria).order_by('starDate')
     categorias = serializers.PartidosSerializer(queryset, many=True)
     return JsonResponse({'partidosCategoria': categorias.data})
 

@@ -14,7 +14,8 @@
                 <option v-for="category in categories" :value="category.id">[%category.description%]</option>
             </select>
         </div>
-        <div class="sk-circle" v-else>
+
+        <div class="sk-circle" v-if="isFetchingCategories">
             <div class="sk-circle1 sk-child"></div>
             <div class="sk-circle2 sk-child"></div>
             <div class="sk-circle3 sk-child"></div>
@@ -31,7 +32,7 @@
 
         <div class="container" v-if="!isFetchingMatches && selectedCategory !== 'default'">
             <div class="table-responsive">
-                <table class="table table-sm">
+                <table class="table table-sm table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Fecha</th>

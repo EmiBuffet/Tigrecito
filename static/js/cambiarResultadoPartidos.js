@@ -13,7 +13,7 @@ Vue.component('tg-partido', {
     },
     template: `
     <tr>
-        <td>{{partido.starDate}}</td>
+        <td>{{partido.starDate | formatDateArg}}</td>
         <td><img :src="partido.idClub_Category_home.image_url" width="25px">
         {{partido.idClub_Category_home.name}}</td>
         <td>
@@ -26,7 +26,7 @@ Vue.component('tg-partido', {
         <td><input type="number" v-model="partido.awayGoals" style="width: 80px;" :disabled="isSendingInfo"></td>
         <td><input type="number" v-model="partido.awayPenaltis" style="width: 80px;" :disabled="isSendingInfo"></td>
         <td>
-        <button class="btn btn-primary" @click="onSaveMatch($event)" :disabled="isSendingInfo">Guardar</button>
+        <button class="btn btn-primary" @click="onSaveMatch($event)" :disabled="isSendingInfo"><i class="fas fa-paper-plane"></i></button>
         </td>
     </tr>
     `,
@@ -34,8 +34,7 @@ Vue.component('tg-partido', {
     methods: {
         onSaveMatch: function(event) {
             this.isSendingInfo = true
-            event.target.textContent = 'Enviando...'
-            console.log(this.partido.homePenaltis)
+            event.target.innerHTML = '<i class="fas fa-spinner"></i>'
             axios.post(`${HOST}/cambiar-resultado/`,{
                 idPartido: this.partido.id,
                 GolesLocal: this.partido.homeGoals,
@@ -43,12 +42,20 @@ Vue.component('tg-partido', {
                 PenalesLocal: this.partido.homePenaltis,
                 PenalesVisitante: this.partido.awayPenaltis
             },this.config).then(response => {
-                console.log(response)
                 this.isSendingInfo = false
-                event.target.textContent = 'Guardar'
+                event.target.innerHTML = '<i class="fas fa-paper-plane"></i>'
             }).catch(err => {
-                console.error(err)
+                this.isSendingInfo = false
+                event.target.innerHTML = '<i class="fas fa-paper-plane"></i>'
+                console.err(err)
             })
+        }
+    },
+    filters: {
+        formatDateArg: function(value) {
+            if(!value) return ''
+            let nuevoDate = new Date(value)
+            return nuevoDate.getDate() + '/' + (nuevoDate.getMonth() + 1)  + ' - ' + nuevoDate.getHours() + ':' + nuevoDate.getMinutes()
         }
     }
 })
@@ -61,7 +68,8 @@ var vmCambiarResultadoPartidos = new Vue({
         isFetchingCategories: true,
         categories: [],
         matches: [],
-        isFetchingMatches: false
+        isFetchingMatches: false,
+        sendingMatchToServer: false
     },
     methods: {
         getAllCategories: function() {
