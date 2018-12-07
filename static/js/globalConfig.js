@@ -4,7 +4,7 @@ var HOST_PRODUC = 'https://www.tigrecitosunchales.com'
 var HOST;
 
 // poner en false si se pone en producción.
-const DEV_MODE = true
+const DEV_MODE = false
 
 if(DEV_MODE) {
 	HOST = HOST_DEV
