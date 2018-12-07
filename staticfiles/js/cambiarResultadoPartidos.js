@@ -55,7 +55,7 @@ Vue.component('tg-partido', {
         formatDateArg: function(value) {
             if(!value) return ''
             let nuevoDate = new Date(value)
-            return nuevoDate.getDate() + '/' + (nuevoDate.getMonth() + 1)  + ' - ' + nuevoDate.getHours() + ':' + nuevoDate.getMinutes()
+            return nuevoDate.getDate() + '/' + (nuevoDate.getMonth() + 1)  + ' - ' + nuevoDate.getUTCHours() + ':' + nuevoDate.getMinutes()
         }
     }
 })
