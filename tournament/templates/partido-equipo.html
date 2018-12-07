@@ -26,7 +26,7 @@
                     <tbody>
                         {%for partido in partidos.noJugados%}
                         <tr>
-                            <td class="match-date" data-matchDate="{{partido.starDate|date:'d-m-Y'}}">
+                            <td class="match-date" data-matchDate="{{partido.starDate|date:'j-m-Y'}}">
                                 {{partido.starDate|date:"d/m/Y - G:i"}}
                             </td>
                             {%if club.id == partido.idClub_Category_home.id%}
