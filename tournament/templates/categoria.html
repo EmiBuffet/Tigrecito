@@ -27,51 +27,59 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
-                        <tr>
-                            <th scope="col">Puesto</th>
-                            <th scope="col">Club</th>
-                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Puntos">PTS</th>
-                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos jugados">PJ</th>
-                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos ganados">PG</th>
-                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos perdidos">PP</th>
-                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos empatados">PE</th>
-                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles a favor">G.Favor</th>
-                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles en contra">G.Contra
-                            </th>
-                            <th scope="col" data-toggle="tooltip" data-placement="left" title="Diferencia de goles">G.Diff
-                            </th>
-                        </tr>
+                    <tr>
+                        <th scope="col">Puesto</th>
+                        <th scope="col">Club</th>
+                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Puntos">PTS</th>
+                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos jugados">PJ</th>
+                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos ganados">PG</th>
+                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos perdidos">PP</th>
+                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos empatados">PE</th>
+                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles a favor">G.Favor</th>
+                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles en contra">G.Contra
+                        </th>
+                        <th scope="col" data-toggle="tooltip" data-placement="left" title="Diferencia de goles">G.Diff
+                        </th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {% for equipo in zona.lista_equipos %}
-                        {% if equipo.partidos_jugados is 0 or equipo.partidos_jugados is null%}
-                        <tr class="clickable-row" data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
-                            <td>{{forloop.counter}}</td>
-                            <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club }} ({{equipo.club.city}})</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        {%else%}
-                        <tr class="clickable-row" data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
-                            <td>{{forloop.counter}}</td>
-                            <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club }} ({{equipo.club.city}})</td>
-                            <td>{{ equipo.puntos }}</td>
-                            <td>{{ equipo.partidos_jugados }}</td>
-                            <td>{{ equipo.partidos_ganados }}</td>
-                            <td>{{ equipo.partidos_perdidos }}</td>
-                            <td>{{ equipo.partidos_empatados }}</td>
-                            <td>{{ equipo.goles_a_favor }}</td>
-                            <td>{{ equipo.goles_en_contra }}</td>
-                            <td>{{ equipo.dif_goles }}</td>
-                        </tr>
-                        {%endif%}
-                        {% endfor %}
+                    {% for equipo in zona.lista_equipos %}
+                    {% if equipo.partidos_jugados is 0 or equipo.partidos_jugados is null%}
+                    <tr class="clickable-row"
+                        data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
+                        <td>{{forloop.counter}}</td>
+                        <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club }}
+                            ({{equipo.club.city}})
+                        </td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    {%else%}
+                    <tr class="clickable-row"
+                        data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
+                        <td>{{forloop.counter}}</td>
+
+                        <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club }}
+                            ({{equipo.club.city}})
+                        </td>
+
+                        <td>{{ equipo.puntos }}</td>
+                        <td>{{ equipo.partidos_jugados }}</td>
+                        <td>{{ equipo.partidos_ganados }}</td>
+                        <td>{{ equipo.partidos_perdidos }}</td>
+                        <td>{{ equipo.partidos_empatados }}</td>
+                        <td>{{ equipo.goles_a_favor }}</td>
+                        <td>{{ equipo.goles_en_contra }}</td>
+                        <td>{{ equipo.dif_goles }}</td>
+                    </tr>
+                    {%endif%}
+                    {% endfor %}
 
                     </tbody>
                 </table>
@@ -95,9 +103,11 @@
             {%for item in playoff.gold.cuartos%}
             <div class="row border mt-5 {%if forloop.first is True%}mt-lg-1 {%else%}mt-lg-5 {%endif%}">
                 <div class="col-lg-1 border-right d-flex justify-content-center align-items-center position-relative py-2 pt-lg-0 mb-3 mb-lg-0">
-                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span>
+                    </div>
                     <div>{{item.idTypeOfMatch|cut:"Cuarto " }}</div>
-                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span>
+                    </div>
                 </div>
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
@@ -150,9 +160,11 @@
             {%for item in playoff.gold.semis%}
             <div class="row border mt-5 {%if forloop.first is True%}mt-lg-1 {%else%}mt-lg-5 {%endif%}">
                 <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
-                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span>
+                    </div>
                     <div>{{item.idTypeOfMatch|cut:"Semifinal " }}</div>
-                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span>
+                    </div>
                 </div>
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
@@ -204,9 +216,11 @@
             {%for item in playoff.gold.tercerPuesto%}
             <div class="row border mt-5 mt-lg-3">
                 <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
-                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span>
+                    </div>
                     <div>A</div>
-                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span>
+                    </div>
                 </div>
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
@@ -260,9 +274,11 @@
             {%for item in playoff.gold.final%}
             <div class="row border mt-5 mt-lg-3">
                 <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
-                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span>
+                    </div>
                     <div>A</div>
-                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span>
+                    </div>
                 </div>
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
@@ -320,9 +336,11 @@
             {%for item in playoff.silver.cuartos%}
             <div class="row border mt-5 {%if forloop.first is True%}mt-lg-1 {%else%}mt-lg-5 {%endif%}">
                 <div class="col-lg-1 border-right d-flex justify-content-center align-items-center position-relative py-2 pt-lg-0 mb-3 mb-lg-0">
-                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span>
+                    </div>
                     <div>{{item.idTypeOfMatch|cut:"Cuarto " }}</div>
-                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span>
+                    </div>
                 </div>
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
@@ -375,9 +393,11 @@
             {%for item in playoff.silver.semis%}
             <div class="row border mt-5 {%if forloop.first is True%}mt-lg-1 {%else%}mt-lg-5 {%endif%}">
                 <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
-                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span>
+                    </div>
                     <div>{{item.idTypeOfMatch|cut:"Semifinal " }}</div>
-                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span>
+                    </div>
                 </div>
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
@@ -429,9 +449,11 @@
             {%for item in playoff.silver.tercerPuesto%}
             <div class="row border mt-5 mt-lg-3">
                 <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
-                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span>
+                    </div>
                     <div>A</div>
-                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span>
+                    </div>
                 </div>
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
@@ -485,9 +507,11 @@
             {%for item in playoff.silver.final%}
             <div class="row border mt-5 mt-lg-3">
                 <div class="col-lg-1 border-right d-flex justify-content-center align-items-center py-2 pt-lg-0 mb-3 mb-lg-0">
-                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span></div>
+                    <div class="position-absolute playoff-date-match"><span class="badge badge-primary">{{item.idMatch.starDate|date:"d/m/ - G:i"}}</span>
+                    </div>
                     <div>A</div>
-                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span></div>
+                    <div class="position-absolute playoff-field-number"><span class="badge badge-secondary">{{item.idMatch.idFootbalField}}</span>
+                    </div>
                 </div>
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">

@@ -19,7 +19,6 @@ def home(request):
 
 
 def torneo(request):
-    # Usar el método .values() para obtener todo el objeto (con ID).
     categorias = Category.objects.all().values()
     categoriesInfo = []
     for categoryObj in categorias:
@@ -50,7 +49,6 @@ def contacto(request):
             else:
                 return JsonResponse({'wasSended': 'false',
                                      'errorMessage': 'No pudimos enviar el correo, por favor intentelo nuevamente.'})
-
         else:
             return JsonResponse({'wasSended': 'false', 'errorMessage': 'Completar campos obligatorios'})
     else:
@@ -75,7 +73,6 @@ def show_pdf_buenafe(request):
 
 def clubes(request):
     clubs = Club.objects.all()
-    # TODO: Obtener categoryId de cada CLUB.
     context = {'clubs': clubs, 'meta_title': 'Clubes'}
     return render(request, 'clubes.html', context)
 
@@ -170,12 +167,12 @@ def CategoriasClub(request):
     clubes = serializers.CategoriasClubSerializer(queryset, many=True)
     return JsonResponse({'clubes': clubes.data})
 
+
 @ensure_csrf_cookie
 def CambiarImagen(request):
     respuesta = 'fallo'
     body = request.body.decode('utf-8')
     if request.method == 'POST':
-        print(body)
         objeto = json.loads(body)
         escudo = objeto['shield']
         idClub = objeto['idClub']
@@ -192,5 +189,78 @@ def CambiarImagen(request):
 def mostrarEquipoEscudos(request):
     if request.user.is_staff:
         return render(request, 'escudos-equipos.html', {'meta_title': 'Cambiar escudo'})
+    else:
+        return HttpResponseRedirect("/")
+
+
+# seccion cambiar resultado de partidos
+
+# accest to api/categorias
+def Categorias(request):
+    queryset = Category.objects.all()
+    categorias = serializers.CategoriaSerializer(queryset, many=True)
+    return JsonResponse({'categorias': categorias.data})
+
+
+# accest to api/partidos_categoria/id
+def PartidosCategoria(request, categoria):
+    queryset = Matches.objects.all().filter(idCategory=categoria).order_by('starDate')
+    categorias = serializers.PartidosSerializer(queryset, many=True)
+    return JsonResponse({'partidosCategoria': categorias.data})
+
+
+# Cambiar resultado de equipos
+def cambiarResultadoPartidos(request):
+    if request.user.is_staff:
+        return render(request, 'cambiar-resultados.html', {'meta_title': 'Cambiar resultado partidos'})
+    else:
+        return HttpResponseRedirect("/")
+
+
+# post para cambiar el resultado de un partido
+@ensure_csrf_cookie
+def CambiarResultado(request):
+    respuesta = ''
+    body = request.body.decode('utf-8')
+    if request.method == 'POST':
+        if request.user.is_staff:
+            objeto = json.loads(body)
+            # datos del partido
+            idPartido = objeto['idPartido']
+            golesLocal = objeto['GolesLocal']
+            golesVisitante = objeto['GolesVisitante']
+            penalesLocal = objeto['PenalesLocal']
+            penalesVisitante = objeto['PenalesVisitante']
+            # objeto partido de la db
+            partido = Matches.objects.get(id=idPartido)
+
+            if golesLocal is '' and golesVisitante is '':
+                partido.homeGoals = None
+                partido.awayGoals = None
+            elif golesLocal is not None and golesVisitante is not None:
+                partido.homeGoals = golesLocal
+                partido.awayGoals = golesVisitante
+            elif golesLocal is None and golesVisitante is None:
+                partido.homeGoals = None
+                partido.awayGoals = None
+            else:
+                respuesta = 'Error: Falto cargar goles de un equipo'
+            if penalesLocal is '' and penalesVisitante is '':
+                partido.homePenaltis = None
+                partido.awayPenaltis = None
+            elif penalesLocal is not None and penalesVisitante is not None:
+                partido.homePenaltis = penalesLocal
+                partido.awayPenaltis = penalesVisitante
+            elif penalesLocal is None and penalesVisitante is None:
+                partido.homePenaltis = None
+                partido.awayPenaltis = None
+            else:
+                respuesta = 'Error: Falto cargar penales de un equipo'
+            if respuesta == '':
+                partido.save()
+                respuesta = 'Se guardo correctamente'
+            return JsonResponse({'respuesta': respuesta})
+        else:
+            return HttpResponseRedirect("/")
     else:
         return HttpResponseRedirect("/")

@@ -22,7 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls, ),
     path('admin/cambiar-escudos', views.mostrarEquipoEscudos, name="cambiar-escudo"),
+    path('admin/cambiar-resultado-partidos', views.cambiarResultadoPartidos, name="cambiar-resultado-partidos"),
     path('escudo/', views.CambiarImagen, name="escudo"),
+    path('cambiar-resultado/', views.CambiarResultado, name="cambiar-resultado"),
     path('', views.home, name="home"),
     path('torneo/', views.torneo, name="torneo"),
     path('contacto/', views.contacto, name="contacto"),
@@ -34,6 +36,8 @@ urlpatterns = [
     path('api/partidos/<str:club>/<str:categoria>', views.ListPartidos, name='partidos_club_categoria'),
     path('api/partidos', views.ListarTodos, name="todos_partidos"),
     path('api/clubes', views.CategoriasClub, name="api_clubes"),
+    path('api/categorias', views.Categorias, name="api_categorias"),
+    path('api/partidos_categoria/<str:categoria>', views.PartidosCategoria, name="api_partidos_categoria"),
     path('partido/equipo/<str:clubName>/<str:clubId>/<str:categoryId>', views.partidosEquipo)
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
