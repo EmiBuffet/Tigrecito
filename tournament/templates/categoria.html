@@ -27,59 +27,57 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
-                    <tr>
-                        <th scope="col">Puesto</th>
-                        <th scope="col">Club</th>
-                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Puntos">PTS</th>
-                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos jugados">PJ</th>
-                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos ganados">PG</th>
-                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos perdidos">PP</th>
-                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos empatados">PE</th>
-                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles a favor">G.Favor</th>
-                        <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles en contra">G.Contra
-                        </th>
-                        <th scope="col" data-toggle="tooltip" data-placement="left" title="Diferencia de goles">G.Diff
-                        </th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Puesto</th>
+                            <th scope="col">Club</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Puntos">PTS</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos jugados">PJ</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos ganados">PG</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos perdidos">PP</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Partidos empatados">PE</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles a favor">G.Favor</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="right" title="Goles en contra">G.Contra
+                            </th>
+                            <th scope="col" data-toggle="tooltip" data-placement="left" title="Diferencia de goles">G.Diff
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                    {% for equipo in zona.lista_equipos %}
-                    {% if equipo.partidos_jugados is 0 or equipo.partidos_jugados is null%}
-                    <tr class="clickable-row"
-                        data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
-                        <td>{{forloop.counter}}</td>
-                        <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club }}
-                            ({{equipo.club.city}})
-                        </td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    {%else%}
-                    <tr class="clickable-row"
-                        data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
-                        <td>{{forloop.counter}}</td>
+                        {% for equipo in zona.lista_equipos %}
+                        {% if equipo.partidos_jugados is 0 or equipo.partidos_jugados is null%}
+                        <tr class="clickable-row" data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
+                            <td>{{forloop.counter}}</td>
+                            <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club }}
+                                ({{equipo.club.city}})
+                            </td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        {%else%}
+                        <tr class="clickable-row" data-path="partido/equipo/{{equipo.club.name}}/{{equipo.club.id}}/{{idCategoria}}">
+                            <td>{{forloop.counter}}</td>
 
-                        <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club }}
-                            ({{equipo.club.city}})
-                        </td>
+                            <td><img src="{{ equipo.club.image_url }}" width="25px"> {{ equipo.club }}
+                                ({{equipo.club.city}})
+                            </td>
 
-                        <td>{{ equipo.puntos }}</td>
-                        <td>{{ equipo.partidos_jugados }}</td>
-                        <td>{{ equipo.partidos_ganados }}</td>
-                        <td>{{ equipo.partidos_perdidos }}</td>
-                        <td>{{ equipo.partidos_empatados }}</td>
-                        <td>{{ equipo.goles_a_favor }}</td>
-                        <td>{{ equipo.goles_en_contra }}</td>
-                        <td>{{ equipo.dif_goles }}</td>
-                    </tr>
-                    {%endif%}
-                    {% endfor %}
+                            <td>{{ equipo.puntos }}</td>
+                            <td>{{ equipo.partidos_jugados }}</td>
+                            <td>{{ equipo.partidos_ganados }}</td>
+                            <td>{{ equipo.partidos_perdidos }}</td>
+                            <td>{{ equipo.partidos_empatados }}</td>
+                            <td>{{ equipo.goles_a_favor }}</td>
+                            <td>{{ equipo.goles_en_contra }}</td>
+                            <td>{{ equipo.dif_goles }}</td>
+                        </tr>
+                        {%endif%}
+                        {% endfor %}
 
                     </tbody>
                 </table>
@@ -112,7 +110,7 @@
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_home.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_home.name}}
                         </div>
                         <div class="px-3">
@@ -129,7 +127,7 @@
 
                     <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_away.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_away.name}}
                         </div>
                         <div class="px-3">
@@ -169,7 +167,7 @@
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_home.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_home.name}}
                         </div>
                         <div class="px-3">
@@ -186,7 +184,7 @@
 
                     <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_away.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_away.name}}
                         </div>
                         <div class="px-3">
@@ -225,7 +223,7 @@
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_home.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_home.name}}
                         </div>
                         <div class="px-3">
@@ -242,7 +240,7 @@
 
                     <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_away.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_away.name}}
                         </div>
                         <div class="px-3">
@@ -283,7 +281,7 @@
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_home.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_home.name}}
                         </div>
                         <div class="px-3">
@@ -300,7 +298,7 @@
 
                     <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_away.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_away.name}}
                         </div>
                         <div class="px-3">
@@ -345,7 +343,7 @@
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_home.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_home.name}}
                         </div>
                         <div class="px-3">
@@ -362,7 +360,7 @@
 
                     <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_away.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_away.name}}
                         </div>
                         <div class="px-3">
@@ -402,7 +400,7 @@
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_home.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_home.name}}
                         </div>
                         <div class="px-3">
@@ -419,7 +417,7 @@
 
                     <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_away.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_away.name}}
                         </div>
                         <div class="px-3">
@@ -458,7 +456,7 @@
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_home.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_home.name}}
                         </div>
                         <div class="px-3">
@@ -475,7 +473,7 @@
 
                     <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_away.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_away.name}}
                         </div>
                         <div class="px-3">
@@ -516,7 +514,7 @@
                 <div class="col-lg-11 p-0">
                     <div class="border-bottom pl-2 py-2 d-flex justify-content-center {% if item.idMatch.homeGoals > item.idMatch.awayGoals or item.idMatch.homePenaltis > item.idMatch.awayPenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_home.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_home.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_home.name}}
                         </div>
                         <div class="px-3">
@@ -533,7 +531,7 @@
 
                     <div class="pl-2 py-2 d-flex justify-content-center {% if item.idMatch.awayGoals > item.idMatch.homeGoals or item.idMatch.awayPenaltis > item.idMatch.homePenaltis%}bg-winner{%endif%}">
                         <div class="flex-grow-1 text-center">
-                            <img src="{{ item.idMatch.idClub_Category_away.shield.url }}" width="20px">
+                            <img src="{{ item.idMatch.idClub_Category_away.image_url }}" width="20px">
                             {{item.idMatch.idClub_Category_away.name}}
                         </div>
                         <div class="px-3">
